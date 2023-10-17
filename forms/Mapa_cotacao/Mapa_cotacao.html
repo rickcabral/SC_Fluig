@@ -1,0 +1,123 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Script_Mapa_cotacao.js"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_mapa_cotacao">
+			<div class="panel panel-primary">
+				<!-- <h1 class="panel-title"><strong>FILTRO DE PEDIDOS</strong></h1> -->
+				<div class="panel-heading align-items-center">
+					<strong class="panel-title"><i class="flaticon flaticon-list icon-md" aria-hidden="true"></i>
+						Mapa de Cotação</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+
+				<div class="panel-body">
+
+					<div class="table-responsive">
+						<table class="table table-bordered" id="tabela_MC" name="tabela_MC">
+							<thead class="sticky-header">
+								<tr>
+									<th class="align-middle custom-th">NOME DO FORNECEDOR</th>
+									<th class="align-middle custom-th">VALOR TOTAL</th>
+									<th class="align-middle custom-th">DATA PREVISTA DE ENTREGA</th>
+									<th class="align-middle custom-th">STATUS</th>
+									<th class="align-middle custom-th">ATIVIDADE</th>
+								</tr>
+							</thead>
+							<tbody>
+								<TD>Pedro Jesus</TD>
+								<TD>15000</TD>
+								<TD>15/09/2023</TD>
+								<TD>Recebido</TD>
+								<TD>
+									<button type="button" class="btn btn-default"
+										onclick="abrir_Modal_area_cotacao()">Detalhes</button>
+									<button type="button" class="btn btn-default"
+										onclick="avançarPainel(this)">Selecionar
+										Cotação</button>
+								</TD>
+
+							</tbody>
+
+							<tbody>
+
+
+								<TD>Jovanny Leite</TD>
+								<TD>20000</TD>
+								<TD>25/12/2023</TD>
+								<TD>Aguardando</TD>
+								<TD>
+									<button type="button" class="btn btn-default"
+										onclick="abrir_Modal_area_cotacao()">Detalhes</button>
+									<button type="button" class="btn btn-default"
+										onclick="avançarPainel(this)">Selecionar
+										Cotação</button>
+								</TD>
+
+							</tbody>
+						</table>
+
+						<div class="overlay" id="overlay">
+							<div id="modal" class="modal">
+								<div class="modal-content">
+									<!-- Conteúdo do modal -->
+									<span class="close" id="fechar-modal-2"
+										onclick="fechar_Modal_area_cotacao()">&times;</span>
+									<div id="conteudo-modal">
+										<!-- O conteúdo será preenchido pelo JavaScript -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<script>
+
+							document.getElementById('fechar-modal-2').style.display = 'none';
+
+							function abrir_Modal_area_cotacao() {
+								// Obtenha as informações do painel de cotação
+								const infoPainel = document.getElementById('area_cotacao').innerHTML;
+
+								// Obtenha as informações adicionadas pelo usuário (substitua com a lógica adequada)
+								const informacoesUsuario = "Informações adicionadas pelo usuário.";
+
+								// Combine as informações do painel e as informações do usuário
+								const todasInformacoes = infoPainel + "<br>" + informacoesUsuario;
+
+								// Defina o conteúdo do modal com as informações combinadas
+								document.getElementById('conteudo-modal').innerHTML = todasInformacoes;
+
+								// Exiba o modal
+								// Você precisará de um modal já definido na sua página com um elemento com id 'modal'
+								document.getElementById('overlay').style.display = 'block';
+								document.getElementById('modal').style.display = 'block';
+								document.getElementById('fechar-modal-2').style.display = 'block';
+							}
+
+							function fechar_Modal_area_cotacao() {
+								document.getElementById('overlay').style.display = 'none';
+								document.getElementById('modal').style.display = 'none';
+							}
+
+						</script>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</form>
+	</div>
+</body>
+
+</html>
