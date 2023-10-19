@@ -1,0 +1,17 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"id": "ij06fchlu9elnutfhg3i3pmyc46q2",
+			"name": "FLUIG HOMOLOG",
+			"host": "abainfraestrutura136692.fluig.cloudtotvs.com.br",
+			"ssl": true,
+			"port": 2350,
+			"username": "admin",
+			"password": "U2FsdGVkX1991YTpoSHvFD1idvFvUBxmpWcxO/5B6ROzIvyduTNgfAO60dBPnBzo",
+			"userCode": "admin",
+			"confirmExporting": false,
+			"companyId": 1
+		}
+	]
+}

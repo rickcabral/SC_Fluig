@@ -49,12 +49,22 @@
 								</select>
 							</div>
 							<div id="servicoDiv">
-								<label for="svc_escolhas">Selecione:</label>
-								<select name="svc_escolhas" id="svc_escolhas" class="form-control">
-									<option value="">-------</option>
-									<option value="consumo">Serviço com Contrato</option>
-									<option value="Mat_escritorio">Serviço sem Contrato</option>
-								</select>
+								<div class="form-group col-md-3">
+									<label for="svc_escolhas">Possui Contrato?</label>
+									<select name="svc_escolhas" id="svc_escolhas" class="form-control">
+										<option value="">-------</option>
+										<option value="svc_contrato">Sim</option>
+										<option value="svc_sem_contrato">Não</option>
+									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="aditivo_escolhas">É novo aditivo?</label>
+									<select name="aditivo_escolhas" id="aditivo_escolhas" class="form-control">
+										<option value="">-------</option>
+										<option value="aditivo">Sim</option>
+										<option value="nao_aditivo">Não</option>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -68,7 +68,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#details').prop('readonly', true);
 
-    $('#svc_escolhas').on('change', function () {
+    $('#svc_escolhas','#aditivo_escolhas').on('change', function () {
         var selectedOption = $(this).val();
 
         if (selectedOption !== '') {
