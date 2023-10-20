@@ -1,0 +1,69 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Script_Selecao_Fornecedores.js"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_selecao_formecedores">
+			<div class="panel panel-primary">
+				<!-- <h1 class="panel-title"><strong>FILTRO DE PEDIDOS</strong></h1> -->
+				<div class="panel-heading align-items-center">
+					<strong class="panel-title"><i class="fluigicon fluigicon-community-selection icon-md"
+							aria-hidden="true"></i>
+						Seleção dos Fornecedores</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+
+				<div class="panel-body">
+
+					<div class="table-responsive">
+						<table class="table table-bordered" id="tabelaSC" name="tabelaSC">
+							<thead class="sticky-header">
+								<tr>
+									<th class="align-middle custom-th">TIPO</th>
+									<th class="align-middle custom-th">CNPJ/CPF</th>
+									<th class="align-middle custom-th">CODIGO</th>
+									<th class="align-middle custom-th">LOJA</th>
+									<th class="align-middle custom-th">RAZÃO SOCIAL</th>
+									<th class="align-middle custom-th">ENDEREÇO</th>
+									<th class="align-middle custom-th">BAIRRO</th>
+									<th class="align-middle custom-th">MUNICIPIO</th>
+									<th class="align-middle custom-th">ESTADO</th>
+									<th class="align-middle custom-th">ATIVIDADE</th>
+								</tr>
+							</thead>
+							<tbody>
+								<TD>COMPRA</TD>
+								<TD>42619350824</TD>
+								<TD>01</TD>
+								<TD>AMERICANAS</TD>
+								<TD>AMERICANAS SA</TD>
+								<TD>RUA ALEXANDRE GUSMAO</TD>
+								<TD>CAMPO GRANDE</TD>
+								<TD>SANTOS</TD>
+								<TD>SP</TD>
+								<TD>
+									<input type="checkbox" name="checkbox" id="checkbox">
+									<label for="checkbox">SELECIONAR</label>
+								</TD>
+							</tbody>
+						</table>
+					</div>
+
+					<hr>
+					<button class="avancar btn btn-default" onclick="avançarPainel(this)">Avançar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

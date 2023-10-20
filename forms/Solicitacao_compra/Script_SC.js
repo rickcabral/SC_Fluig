@@ -68,15 +68,13 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#details').prop('readonly', true);
 
-    $('#svc_escolhas','#aditivo_escolhas').on('change', function () {
-        var selectedOption = $(this).val();
+    $('#svc_escolhas,#aditivo_escolhas').on('change', function () {
+        var svcSelected = $('#svc_escolhas').val();
+        var aditivoSelected = $('#aditivo_escolhas').val();
 
-        if (selectedOption !== '') {
-
+        if (svcSelected !== '' && aditivoSelected !== '') {
             $('#details').prop('readonly', false);
-
         } else {
-
             $('#details').prop('readonly', true);
         }
     });
