@@ -1,0 +1,19 @@
+#teste2 {
+    border: 1px solid #dd0606;
+    position: relative;
+  }
+  
+  #testeMinimizar {
+    background-color: #d30f0f;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .minimizar {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }

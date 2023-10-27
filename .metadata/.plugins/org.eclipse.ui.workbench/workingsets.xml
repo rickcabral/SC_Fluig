@@ -3,6 +3,6 @@
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1697735241063_1" label="Solicitacao_compras_fluig" name="Solicitacao_compras_fluig"/>
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1697735810600_2" label="teste" name="teste"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1697731108174_0" label="Window Working Set" name="Aggregate for window 1697731108174"/>
-<mruList name="teste"/>
 <mruList name="Solicitacao_compras_fluig"/>
+<mruList name="teste"/>
 </workingSetManager>

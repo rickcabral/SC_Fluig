@@ -96,21 +96,46 @@
 							</div>
 							<div class="panel-body">
 								<div class="row">
+
 									<div class="form-group col-md-5">
 										<label for="ct_custo">Centro de Custos</label>
-										<select name="ct_custo" id="ct_custo" class="form-control">
-										</select>
+										<input type="zoom" name="ct_custo" id="ct_custo" data-zoom="{
+                                                    'displayKey':'colleagueName',
+                                                    'datasetId':'colleague',
+                                                    'maximumSelectionLength':'1',
+                                                    'placeholder':'Escolha o centro de custos',
+
+                                                    'fields':[
+                                                        {
+                                                          'field':'colleagueName',
+                                                          'label':'Centro de Custos',
+                                                          'standard':'true'
+                                                        }
+                                                    ]
+                                                 }" />
 									</div>
-									<div class="form-group col-md-3">
-										<label for="pdt">Produto</label>
-										<select name="pdt" id="pdt" class="form-control">
-										</select>
+									<div class="form-group col-md-5">
+										<label for="pdt">Produto</label><br>
+										<input type="zoom" name="pdt" id="pdt" data-zoom="{
+											'displayKey':'colleagueName',
+											'datasetId':'colleague',
+											'maximumSelectionLength':'1',
+											'placeholder':'Selecione o produto',
+
+											'fields':[
+												{
+												  'field':'colleagueName',
+												  'label':'Produtos',
+												  'standard':'true'
+												}
+											]
+										 }" />
 									</div>
 									<div class="form-group col-md-1">
 										<label for="qtd">Quantidade</label>
 										<input type="text" name="qtd" id="qtd" class="form-control" readonly>
 									</div>
-									<div class="form-group col-md-3">
+									<div class="form-group col-md-1">
 										<label for="dt_Necessidade">Necessidade</label>
 										<input type="text" name="dt_Necessidade" id="dt_Necessidade"
 											class="form-control" readonly>

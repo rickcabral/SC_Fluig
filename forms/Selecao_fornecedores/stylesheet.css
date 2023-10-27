@@ -18,3 +18,15 @@
     cursor: pointer;
     font-size: 20px;
 }
+
+/*Estilo para o tr fornecedores cotação*/
+#fornec_tr{
+
+    background-color: #696969	;
+    color: white;
+    text-align: center;
+
+}
+
+/* Estilo para os botões e o botão de seleção */
+

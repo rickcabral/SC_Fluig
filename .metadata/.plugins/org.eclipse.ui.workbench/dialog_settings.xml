@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="workingset_selection_history">
+		<item value="Solicitacao_compras_fluig"/>
+		<item value="teste"/>
+	</list>
 	<section name="WorkbenchPreferenceDialogSettings">
 		<item value="651" key="DIALOG_X_ORIGIN"/>
 		<item value="154" key="DIALOG_Y_ORIGIN"/>
@@ -16,6 +20,16 @@
 		<list key="textArray">
 		</list>
 	</section>
+	<section name="NewWizardAction">
+	</section>
 	<section name="ImportExportAction">
+		<item value="com.totvs.tds.ecm.designer.eclipse.ui.BPMExportManager" key="ImportExportPage.STORE_SELECTED_EXPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_EXPORT_CATEGORIES">
+			<item value="com.totvs.tds.ecm.category.bpm.exportWizard"/>
+		</list>
+	</section>
+	<section name="ZipFileImportWizard">
+	</section>
+	<section name="FileSystemImportWizard">
 	</section>
 </section>

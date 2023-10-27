@@ -87,10 +87,10 @@ $(document).ready(function () {
 
     $('#AdicionarProduto').on('click', function () {
 
-        var nomeproduto = $('#pdt').val();
+        var nomeproduto = $('#pdt option').val();
         var quantidade = $('#qtd').val();
         var necessidade = $('#dt_Necessidade').val();
-        var centro_custos = $('#ct_custo').val();
+        var centro_custos = $('#ct_custo option').val();
         var descricao = $('#dsc_pdt').val();
 
         if (nomeproduto && quantidade && necessidade && centro_custos && descricao) {
@@ -101,10 +101,10 @@ $(document).ready(function () {
 
             $('#gradeProdutos tbody').append('<tr><td>' + nomeproduto + '</td><td>' + quantidade + '</td><td>' + necessidade + '</td><td>' + centro_custos + '</td><td>' + descricao + '</td>' + '<td><button class="btn-remover btn-primary">Remover</button></td></tr>');
 
-            $('#pdt').val('');
+            $('#pdt option').remove();
             $('#qtd').val('');
             $('#dt_Necessidade').val('');
-            $('#ct_custo').val('');
+            $('#ct_custo option').remove();
             $('#dsc_pdt').val('');
 
         }
@@ -158,6 +158,3 @@ $(document).ready(function () {
     });
 
 });
-
-
-
