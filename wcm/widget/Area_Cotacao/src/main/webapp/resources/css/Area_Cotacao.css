@@ -1,70 +1,16 @@
-
-.formLogin {
+.Top_area{
     display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    width: 80%; /* Redimensionando a largura do formulário */
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 7px;
-    padding: 40px;
-    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
-    gap: 15px;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.formLogin h1 {
-    padding: 0;
-    margin: 0;
-    font-weight: 500;
-    font-size: 2.3em;
-    text-align: center; /* Centralizando o título */
+.buttons{
+    display: flex;
+    justify-content: right;
+    align-items: end;
 }
 
-.formLogin p {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 25px;
-    text-align: center; /* Centralizando o texto */
-}
-
-.formLogin input {
-    padding: 15px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    transition: all linear 160ms;
-    outline: none;
-    width: 100%; /* Expandido para 100% da largura do formulário */
-}
-
-.formLogin label {
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center; /* Centralizando o label */
-    display: block; /* Garantindo que o label tenha sua própria linha */
-}
-
-.formLogin a {
-    font-size: 13px;
-    color: #555;
-    transition: all linear 160ms;
-    text-align: center; /* Centralizando o link */
-    display: block; /* Cada link em uma linha separada */
-}
-
-.btn {
-    background-color: #ff0000;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border: none !important;
-    transition: all linear 160ms;
-    cursor: pointer;
-    width: 100%; /* Ocupando 100% da largura do formulário */
-}
-
-.btn:hover {
-    transform: scale(1.05);
-    background-color: #df1515;
+.btn{
+    margin-right: 10px;
 }

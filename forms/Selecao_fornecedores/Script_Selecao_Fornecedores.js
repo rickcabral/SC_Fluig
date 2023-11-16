@@ -108,7 +108,7 @@ $(document).ready(function () {
                 // E-mail válido, adicione as informações à grid
                 fornecedoresAdicionados.push({ CNPJ: CNPJ, RazaoSocial: RazaoSocial, Email: Email });
 
-                $('#gradeFornecedores tbody').append('<tr><td>' + CNPJ + '</td><td>' + RazaoSocial + '</td><td>' + Email + '</td>' + '<td><div class="row" style="display: flex; justify-content: center; align-items: center;"><button type="button" class="remove-btn btn btn-danger" style="margin-right: 10px;">Remover</button><button type="button" class="btn btn-info" style="margin-right: 10px;">Detalhes</button></div></td>' + '</tr>');
+                $('#gradeFornecedores tbody').append('<tr><td>' + CNPJ + '</td><td>' + RazaoSocial + '</td><td>' + Email + '</td>' + '<td><div class="row" style="display: flex; justify-content: center; align-items: center;"><button type="button" class="remove-btn btn btn-danger" style="margin-right: 10px;">Remover</button><button type="button" class="btn btn-info" style="margin-right: 10px;">Visualizar</button></div></td>' + '</tr>');
 
                 $('#CNPJ').val('');
                 $('#razao_social option').remove();
