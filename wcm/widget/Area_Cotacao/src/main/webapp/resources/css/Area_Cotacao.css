@@ -5,12 +5,10 @@
 
 }
 
-.buttons{
-    display: flex;
-    justify-content: right;
-    align-items: end;
-}
+.table{
 
-.btn{
-    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
