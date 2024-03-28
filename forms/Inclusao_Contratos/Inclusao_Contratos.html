@@ -1,0 +1,259 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<link type="text/css" rel="stylesheet" href="/forms/Inclusao_Contratos/stylesheet.css">
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Script_Inclusao_Contratos.js"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_inclusao_contratos">
+			<div class="panel panel-primary" id="Inclusao_Contratos">
+				<div class="panel-heading">
+					<strong class="panel-title"> <i aria-hidden="true"></i>Definição de Contrato
+					</strong>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="Solicitante">Solicitante</label>
+							<input type="text" name="Solicitante" id="Solicitante" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="EmpresaSolicitante">Empresa Solicitante</label>
+							<input type="text" name="EmpresaSolicitante" id="EmpresaSolicitante" class="form-control"
+								readonly>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Dados da Empresa Solicitante
+									</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="razao">Razão Social</label>
+										<input type="text" name="razao" id="razao" class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CNPJ">CNPJ</label>
+										<input type="text" name="CNPJ" id="CNPJ" class="form-control"
+											mask="00.000.000/0000-00">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="comprador">Comprador</label>
+										<input type="text" name="comprador" id="comprador" class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="email">E-mail</label>
+										<input type="email" name="email" id="email" class="form-control">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="endEntrega">Endereço para entrega</label>
+										<input type="text" name="endEntrega" id="endEntrega" class="form-control">
+									</div>
+									<div class="row" style="display: flex; align-items: end; justify-content: right;">
+										<button id="Adicionar_Contratante" type="button" class="btn btn-success"
+											style="margin-left: 10px;">Adicionar</button>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="table-responsive" id="div_tabela_ADC_Contratante"
+											style="display: none;">
+											<table class="table table-bordered" id="gradeContratantes"
+												name="gradeContratantes">
+												<thead>
+													<tr>
+														<th class="align-middle custom-th">Razão Social</th>
+														<th class="align-middle custom-th">CNPJ</th>
+														<th class="align-middle custom-th">Comprador</th>
+														<th class="align-middle custom-th">E-mail</th>
+														<th class="align-middle custom-th">Endereço para entrega</th>
+														<th class="align-middle custom-th">Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Dados da Empresa Fornecedora
+									</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="razaoForn">Razão Social</label>
+										<input type="text" name="razaoForn" id="razaoForn" class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CNPJForn">CNPJ</label>
+										<input type="text" name="CNPJForn" id="CNPJForn" class="form-control"
+											mask="00.000.000/0000-00">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="estado">Estado</label>
+										<input type="text" name="estado" id="estado" class="form-control">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="cidade">Cidade</label>
+										<input type="text" name="cidade" id="cidade" class="form-control">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="contato">Contato</label>
+										<input type="text" name="contato" id="contato" class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="emailForn">E-mail</label>
+										<input type="email" name="emailForn" id="emailForn" class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="numero">Telefone</label>
+										<input type="number" name="numero" id="numero" class="form-control">
+									</div>
+									<div class="row" style="display: flex; align-items: end; justify-content: right;">
+										<button id="Adicionar_Contratado" type="button" class="btn btn-success"
+											style="margin-left: 10px;">Adicionar</button>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="table-responsive" id="div_tabela_ADC_Contratado"
+											style="display: none;">
+											<table class="table table-bordered" id="gradeContratado"
+												name="gradeContratado">
+												<thead>
+													<tr>
+														<th class="align-middle custom-th">Razão Social</th>
+														<th class="align-middle custom-th">CNPJ</th>
+														<th class="align-middle custom-th">Estado</th>
+														<th class="align-middle custom-th">Cidade</th>
+														<th class="align-middle custom-th">Contato</th>
+														<th class="align-middle custom-th">E-mail</th>
+														<th class="align-middle custom-th">Telefone</th>
+														<th class="align-middle custom-th">Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<strong class="panel-title"> <i aria-hidden="true"></i>Dados de Contrato
+								</strong>
+							</div>
+							<div class="panel-body">
+								<div class="form-group col-md-3">
+									<label for="Pz_inicio">Prazo de início</label>
+									<input type="date" name="Pz_inicio" id="Pz_inicio" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Pz_termino">Prazo de término</label>
+									<input type="date" name="Pz_termino" id="Pz_termino" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="ValorContratual">Valor contratual</label>
+									<input type="text" name="ValorContratual" id="ValorContratual" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Proposta">Proposta Contratual</label>
+									<input type="file" id="fileInput" name="Proposta" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<strong class="panel-title"> <i aria-hidden="true"></i>Dados do fornecedor
+								</strong>
+							</div>
+
+							<div class="panel-body">
+								<div class="form-group col-md-3">
+									<label for="Contrato_Social">Contrato Social</label>
+									<input type="file" id="fileInput" name="Insere_Contrato" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Copia_BP">Cópia do Balanço Patrimonial</label>
+									<input type="file" id="fileInput" name="Insere_Copia" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Certidoes_Publicas">Certidões públicas (Municipal,Estadual e
+										Federal)</label>
+									<input type="file" id="fileInput" name="Insere_Certidoes" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Certidao_Debitos">Certidão de Débitos Relativos</label>
+									<input type="file" id="fileInput" name="Insere_Debitos" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Certidao_Forense">Certidões Forenses</label>
+									<input type="file" id="fileInput" name="Insere_Forense" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Certidao_Justica">Certidões da Justiça Comum</label>
+									<input type="file" id="fileInput" name="Insere_Justica" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Certidao_negat_Falencia">Certidão Negativa de falência</label>
+									<input type="file" id="fileInput" name="Insere_Falencia" class="form-control">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="Certidao_negat_protestos">Certidão Negativa de Protestos de
+										Títulos</label>
+									<input type="file" id="fileInput" name="Insere_Protestos" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="display: none;" id="painelDadosFaltantes">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<strong class="panel-title"> <i aria-hidden="true"></i>Descrição de dados faltantes
+									(Fornecedor)
+								</strong>
+							</div>
+							<div class="panel-body">
+								<div class="form-group col-md-12">
+									<label for="Dados_Faltantes">Insira os dados faltantes para ciência do
+										fornecedor</label>
+									<textarea name="Dados_Faltantes" id="Dados_Faltantes" cols="30" rows="5" class="form-control"></textarea>
+								</div>
+								<div class="row" style="display: flex; align-items: end; justify-content: right;">
+									<button type="button" class="btn btn-success" style="margin-left: 10px;" onclick="enviarDadosFaltantes()">Enviar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="display: flex; align-items: end; justify-content: right;">
+						<button type="button" class="btn btn-info" style="margin-left: 10px;" id="Solicitar_dados" onclick="mostrarPainelDadosFaltantes()">Solicitar dados
+							faltantes</button>
+						<button type="button" class="btn btn-success" style="margin-left: 10px;">Seguir para
+							checklist</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

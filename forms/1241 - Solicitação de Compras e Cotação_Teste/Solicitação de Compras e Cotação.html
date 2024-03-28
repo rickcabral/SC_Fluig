@@ -1,0 +1,1807 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+
+	<link href="select2.min.css" rel="stylesheet" />
+	<script src="select2.min.js"></script>
+	<script type="text/javascript" src="moment.min.js" charset="utf-8"></script>
+	<script src="jquery.mask.min.js"></script>
+	<script src="jquery.maskMoney.min.js"></script>
+
+	<script type="text/javascript" src="jquery.fileupload.js"></script>
+	<script type="text/javascript" src="upload_file_rest.js"></script>
+	<link type="text/css" rel="stylesheet" href="upload_file_rest.css" />
+
+	<script type="text/javascript" src="actions.js"></script>
+	<script type="text/javascript" src="validate.js"></script>
+	<script type="text/javascript" src="integracoes.js"></script>
+	<script type="text/javascript" src="controller.js"></script>
+	<script type="text/javascript" src="inputmask.js"></script>
+	<link type="text/css" rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_solicitacao_compra">
+			<div class="panel panel-primary" id="solicitacao_compra">
+				<div class="panel-heading">
+					<strong class="panel-title"> <i class="flaticon flaticon-buy-order icon-md"
+							aria-hidden="true"></i>Solicitação de Compra</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+				<div class="panel-body">
+					<input type="hidden" name="numSolicitacao" id="numSolicitacao">
+					<input type="hidden" name="codUsuario" id="codUsuario">
+					<input type="hidden" name="idUserProtheus" id="idUserProtheus">
+					<input type="hidden" name="numAtividade" id="numAtividade">
+					<input type="hidden" name="idDocForm" id="idDocForm">
+					<input type="hidden" name="numAtividadeAtual" id="numAtividadeAtual">
+					<input type="hidden" name="descAtividadeAtual" id="descAtividadeAtual">
+					<input type="hidden" name="statusSolicitacao" id="statusSolicitacao">
+					<input type="hidden" name="tipoIntegracao" id="tipoIntegracao" value="EVENTO_FORMULARIO">
+					<input type="hidden" name="existeUserProtheus" id="existeUserProtheus">
+					<div class="row" id="msgErroUserSC" style="display:none;">
+						<div class="alert alert-danger" role="alert">Seu usuário não foi encontrado no Protheus ou não
+							tem permissão para realizar inclusão de solicitação de compras. <br>Favor contatar a área de
+							Compras!</div>
+					</div>
+					<div class="row" id="msgErroValidaInicio" style="display:none;">
+						<div class="alert alert-danger" role="alert">Atenção! Verifique os campos em destaque para
+							prosseguir!</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="empresa">Nome da Empresa</label><br>
+							<select name="empresa" id="empresa" class="js-example-basic-single form-control"
+								onchange="getFiliais(this.value),validaEdicao(this.id,'select')"></select>
+							<input type="hidden" class="form-control" name="empresaTXT" id="empresaTXT">
+							<input type="hidden" class="form-control" name="empresaOBJ" id="empresaOBJ">
+							<!--Puxar direto do banco-->
+						</div>
+						<div class="form-group col-md-6" style="display:none;">
+							<label for="filial">Filial</label><br>
+							<select name="filial" id="filial" class="form-control"
+								onchange="alteraTXT(this.id),validaEdicao(this.id,'select')"></select>
+							<input type="hidden" class="form-control" name="filialTXT" id="filialTXT">
+							<input type="hidden" class="form-control" name="filialOBJ" id="filialOBJ">
+							<!--Puxar direto do banco-->
+						</div>
+						<div class="form-group col-md-3">
+							<label for="solicitante">Solicitante</label><br>
+							<input type="text" name="solicitante" id="solicitante" class="form-control" readonly>
+							<input type="hidden" name="codSolicitante" id="codSolicitante" class="form-control">
+							<!--Puxar direto da criação da SC-->
+						</div>
+						<div class="form-group col-md-3">
+							<label for="numSC">Nº da Solicitação de Compras</label>
+							<input type="number" name="numSC" id="numSC" class="form-control" readonly>
+							<input type="hidden" name="numSCEmp" id="numSCEmp" class="form-control" readonly>
+							<!--Puxar direto do banco-->
+						</div>
+						<div class="form-group col-md-3" id="div_dt_emissao">
+							<label for="dt_emissao">Data de Emissão</label>
+							<input type="text" name="dt_emissao" id="dt_emissao" class="form-control" readonly>
+							<input type="hidden" name="dataEmissaoFormatada" id="dataEmissaoFormatada"
+								class="form-control" readonly>
+							<!--Puxar direto da data atual em que se abriu a SC-->
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="lb_dataNecessidade">Data Necessidade:</label>
+							<input type="text" class="form-control" name="dataNecessidade" id="dataNecessidade"
+								onchange="convertDtTxt(this.id)"
+								style="background-color: #FFF;color:#363637;font-size:12px;">
+							<input type="hidden" class="form-control" name="dataNecessidadeTXT" id="dataNecessidadeTXT">
+							<input type="hidden" class="form-control" name="dataNecessidadeFormatada"
+								id="dataNecessidadeFormatada">
+						</div>
+						<div class="form-group col-md-4">
+							<label for="tipoSC">Tipo Solicitação:</label>
+							<select name="tipoSC" id="tipoSC" class="form-control"
+								onchange="validaEdicao(this.id,'select'),alteraTXT(this.id)">
+								<option value="">Selecione</option>
+								<option value="PRODUTO">Produto</option>
+								<option value="SERVICO">Serviço</option>
+							</select>
+							<input type="hidden" class="form-control" name="tipoSCTXT" id="tipoSCTXT">
+						</div>
+
+						<div class="form-group col-md-2 servicoDiv" style="display:none;">
+							<label for="possuiContrato">Possui Contrato?</label>
+							<select name="possuiContrato" id="possuiContrato" class="form-control"
+								onchange="alteraTXT(this.id),validaEdicao(this.id,'select')">
+								<option value="">Selecione</option>
+								<option value="SIM">Sim</option>
+								<option value="NAO">Não</option>
+							</select>
+							<input type="hidden" class="form-control" name="possuiContratoTXT" id="possuiContratoTXT">
+						</div>
+						<div class="form-group col-md-2 servicoDiv" style="display:none;">
+							<label for="aditivo">É novo aditivo?</label>
+							<select name="aditivo" id="aditivo" class="form-control"
+								onchange="alteraTXT(this.id),validaEdicao(this.id,'select')">
+								<option value="">Selecione</option>
+								<option value="SIM">Sim</option>
+								<option value="NAO">Não</option>
+							</select>
+							<input type="hidden" class="form-control" name="aditivoTXT" id="aditivoTXT">
+						</div>
+						<div class="form-group col-md-4" id="divTipoMaterial" style="display:none">
+							<label for="tipoMaterial">Tipo de Material:</label>
+							<select name="tipoMaterial" id="tipoMaterial" class="form-control"
+								onchange="alteraTXT(this.id),validaEdicao(this.id,'select')">
+								<option value="">Selecione</option>
+								<option value="CONSUMO">Materiais de Consumo</option>
+								<option value="ESCRITORIO">Materiais de Escritório</option>
+								<option value="ENGENHARIA">Materiais de Engenharia</option>
+							</select>
+							<input type="hidden" class="form-control" name="tipoMaterialTXT" id="tipoMaterialTXT">
+						</div>
+					</div>
+					<hr>
+					<div class="form-group col-md-12">
+						<div class="panel panel-primary" id="pn-produto">
+							<div class="panel-heading">
+								<h3 class="panel-title" id="title_pn-produto"> </h3>
+							</div>
+							<div class="panel-body">
+								<div class="row divTempProdutos">
+
+									<div class="form-group col-md-4">
+										<label id="lb_produtoTemp">Produto</label>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="javascript:void(0)" onclick="limpaSelect2('produtoTemp')"
+											id="limpar_produtoTemp">
+											<span
+												style="font-size: 13px;text-decoration: underline;color: #df3159;font-weight: bold;"
+												id="clean_produtoTemp">Limpar</span>
+										</a>
+										<a href="javascript:void(0)" onclick="recarregaProdutoTemp('produtoTemp')"
+											id="trocar_produtoTemp" style="display:none;">
+											<span
+												style="font-size: 13px;text-decoration: underline;color: #0784df;font-weight: bold;"
+												id="alter_produtoTemp">Alterar</span>
+										</a>
+										<select class="js-example-basic-single form-control" name="produtoTemp"
+											id="produtoTemp"></select>
+										<input type="hidden" class="form-control" name="primeiroProdutoCod"
+											id="primeiroProdutoCod">
+										<input type="hidden" class="form-control" name="primeiroProdutoTXT"
+											id="primeiroProdutoTXT">
+									</div>
+									<div class="form-group col-md-4">
+										<label id="lb_centroCustoTemp">Centro de Custos</label>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="javascript:void(0)" onclick="limpaSelect2('centroCustoTemp')"
+											id="limpar_centroCustoTemp">
+											<span
+												style="font-size: 13px;text-decoration: underline;color: #df3159;font-weight: bold;"
+												id="clean_centroCustoTemp">Limpar</span>
+										</a>
+										<a href="javascript:void(0)"
+											onclick="recarregaCentroCustoTemp('centroCustoTemp')"
+											id="trocar_centroCustoTemp" style="display:none;">
+											<span
+												style="font-size: 13px;text-decoration: underline;color: #0784df;font-weight: bold;"
+												id="alter_centroCustoTemp">Alterar</span>
+										</a>
+										<select class="js-example-basic-single form-control" name="centroCustoTemp"
+											id="centroCustoTemp">
+										</select>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="qtd">Quantidade</label>
+										<input type="text" name="quantidadeTemp" id="quantidadeTemp"
+											class="form-control"
+											onchange="validaEdicao(this.id,'text'),formataInt(this.id)"
+											onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="categoriaSC">Categoria:</label>
+										<select name="categoriaSC" id="categoriaSC" class="form-control"
+											onchange="alteraTXT(this.id),validaEdicao(this.id,'select')">
+											<option value="">Selecione</option>
+											<option value="1">Normal</option>
+											<option value="2">Licitação</option>
+											<option value="3">Regularização</option>
+											<option value="4">Urgente</option>
+											<option value="5">SLA(Indicação Técnica)</option>
+											<option value="6">Contrato</option>
+										</select>
+										<input type="hidden" class="form-control" name="categoriaSCTXT"
+											id="categoriaSCTXT">
+									</div>
+								</div>
+								<div class="row divTempProdutos">
+									<div class="form-group col-md-12">
+										<label>Informações Complementares</label>&nbsp;&nbsp;<i
+											class="flaticon flaticon-important icon-sm" aria-hidden="true"
+											style="color: #3aa0c9;font-size: 17px;"></i>&nbsp;<span
+											class="text-info">Descreva características como marca, modelo, tamanho,
+											garantia, etc. Estas informações serão encaminhadas ao fornecedor.</span>
+										<textarea class="form-control" name="infoComplProdutoTemp"
+											id="infoComplProdutoTemp" rows="2"></textarea>
+									</div>
+									<div class="form-group col-md-12">
+										<label>Observação Item</label>&nbsp;&nbsp;<i
+											class="flaticon flaticon-important icon-sm" aria-hidden="true"
+											style="color: #3aa0c9;font-size: 17px;"></i>&nbsp;<span
+											class="text-info">Informe a justifica e informações necessárias ao compras.
+											Exemplo: Número do chamado.</span>
+										<textarea class="form-control" name="obsPedidoTemp" id="obsPedidoTemp" rows="2"
+											maxlength="512"></textarea>
+										<input type="hidden" name="numLinhaProdutoSC" id="numLinhaProdutoSC">
+									</div>
+								</div>
+								<div class="row" id="msgErrotbGradeProdutos" style="display:none;">
+									<div class="alert alert-danger" role="alert">
+										Atenção! Os campos em destaque são obrigatórios ou estão com informações
+										incorretas!
+									</div>
+								</div>
+								<div class="row divTempProdutos" style="float:right">
+									<div class="form-group col-md-2">
+										<button type="button" class="btn btn-success" id="adicionaProdutoSC"
+											onclick="addTbGradeProdutos()">Adicionar</button>
+										<button type="button" class="btn btn-success" id="salvaProdutoSC"
+											onclick="saveTbGradeProdutos()" style="display:none;">Salvar</button>
+										<button type="button" class="btn btn-primary" id="ocultaProdutoSC"
+											onclick="ocultaTbGradeProdutos()" style="display:none;">Ocultar</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="table-responsive" id="div_tabela_pdt"
+										style="width: 97%; margin-left: 15px;">
+										<table class="table table-bordered" id="tbGradeProdutos"
+											tablename="tbGradeProdutos" noaddbutton="true">
+											<thead>
+												<tr>
+													<th class="align-middle custom-th" style="width:40%">Produto</th>
+													<th class="align-middle custom-th">Quantidade</th>
+													<th class="align-middle custom-th" style="width:25%">Centro de
+														Custos</th>
+													<th class="align-middle custom-th" style="width:10%">Ação</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<input type="hidden" class="exclude"
+															name="excludetbGradeProdutos" id="excludetbGradeProdutos">
+														<input type="hidden" class="form-control" name="codProdutoSC"
+															id="codProdutoSC"
+															style="background-color: #FFF;color:#363637;font-size:12px;"
+															readonly>
+														<input type="text" class="form-control" name="descrProdutoSC"
+															id="descrProdutoSC"
+															style="background-color: #FFF;color:#363637;font-size:12px;"
+															readonly>
+														<textarea class="form-control" name="infoComplProdutoSC"
+															id="infoComplProdutoSC" style="display:none"></textarea>
+													</td>
+													<td><input type="text" class="form-control" name="quantidadeSC"
+															id="quantidadeSC"
+															style="background-color: #FFF;color:#363637;font-size:12px;"
+															readonly></td>
+													<td>
+														<input type="text" class="form-control"
+															name="descrCentroCustoSC" id="descrCentroCustoSC"
+															style="background-color: #FFF;color:#363637;font-size:12px;"
+															readonly>
+														<input type="hidden" class="form-control"
+															name="codCentroCustoSC" id="codCentroCustoSC"
+															style="background-color: #FFF;color:#363637;font-size:12px;"
+															readonly>
+														<textarea class="form-control" name="observacaoSC"
+															id="observacaoSC" style="display:none;"></textarea>
+														<input type="hidden" name="codCategoriaItemSC"
+															id="codCategoriaItemSC">
+														<input type="hidden" name="descCategoriaItemSC"
+															id="descCategoriaItemSC">
+													</td>
+													<td>
+														<div id="DIVbtnAcoestbGradeProdutos" style="text-align:center;">
+														</div>
+														<input type="hidden" class="form-control" name="acoesSC"
+															id="acoesSC">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-primary" id="pn-servico">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <i class="fluigicon fluigicon-process-details icon-md"
+										aria-hidden="true"></i></i>Detalhamento de Escopo</h3>
+							</div>
+							<div class="panel-body">
+								<div class="row divTempServicos">
+									<div class="form-group col-md-12">
+										<label for="descricaoServicoTemp">Descrição Serviço</label>
+										<textarea name="descricaoServicoTemp" id="descricaoServicoTemp" rows="5"
+											class="form-control"></textarea>
+										<input type="hidden" name="numLinhaServico" id="numLinhaServico">
+									</div>
+								</div>
+								<div class="row divTempServicos" id="msgErrotbServicos" style="display:none;">
+									<div class="alert alert-danger" role="alert">
+										Atenção! Os campos em destaque são obrigatórios ou estão com informações
+										incorretas!
+									</div>
+								</div>
+								<div class="row divTempServicos" style="float:right">
+									<div class="form-group col-md-2">
+										<button type="button" class="btn btn-success" id="adicionaServico"
+											onclick="addTbServicos()">Adicionar</button>
+										<button type="button" class="btn btn-success" id="salvaServico"
+											onclick="saveTbServicos()" style="display:none;">Salvar</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="" id="div_tabela_svc">
+										<table class="table table-bordered" id="tbServicos" tablename="tbServicos"
+											noaddbutton="true">
+											<thead>
+												<tr>
+													<th class="align-middle custom-th" style="width:90%">Descrição
+														Serviço</th>
+													<th class="align-middle custom-th">Ação</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<input type="hidden" class="exclude" name="excludetbServicos"
+															id="excludetbServicos">
+														<textarea class="form-control" name="descricaoServico"
+															id="descricaoServico" rows="2"
+															style="background-color: #FFF;color:#363637;font-size:12px;"
+															readonly></textarea>
+													</td>
+													<td>
+														<div id="DIVbtnAcoestbServicos" style="text-align:center;">
+														</div>
+														<input type="hidden" class="form-control" name="acoesServico"
+															id="acoesServico">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="well" style="max-width: 400px; margin: 0 auto 10px;" id="divBtnGeraSolCompras">
+							<button type="button" id="btnGeraSC" class="btn btn-success btn-lg btn-block"
+								onclick="criaSolicitacaDeCompra()" style="padding-bottom:10px"><span
+									style="font-size:16px;">Criar Solicitação de Compras</span>&nbsp;&nbsp;<i
+									class="flaticon flaticon-play-filled icon-md" aria-hidden="true"></i></button>
+						</div>
+						<div class="row" id="msgErroValidaCriaSC" style="display:none;">
+							<div class="alert alert-danger" role="alert">
+								Atenção! Os campos em destaque são obrigatórios ou estão com informações incorretas!
+							</div>
+						</div>
+						<div class="row" id="msgErroIntegracaoSC" style="display:none;">
+							<div class="alert alert-danger" role="alert">Atenção! Houve um erro no processamento da
+								Solicitação de Compras. Contate a TI!<br>Erro: <span id="codeErroIntegracaoSC"></span>
+							</div>
+						</div>
+						<div class="row" id="msgSucessoIntegracaoSC" style="display:none;font-size:16px;">
+							<div class="alert alert-success" role="alert">Solicitação criada com sucesso de nº: <span
+									id="codeSucessoIntegracaoSC"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ########################################################################################### 
+										PAINEL SELEÇÃO DE FORNECEDORES E COTACAO
+			################################################################################################-->
+
+			<div class="panel panel-primary" id="selecaoFornecedores">
+				<!-- <h1 class="panel-title"><strong>FILTRO DE PEDIDOS</strong></h1> -->
+				<div class="panel-heading align-items-center">
+					<strong class="panel-title"><i class="fluigicon fluigicon-community-selection icon-md"
+							aria-hidden="true"></i>
+						Seleção dos Fornecedores</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+
+				<div class="panel-body">
+					<div id="tempSelecaoFornecedor">
+						<input type="hidden" name="ajustesCotacaoFinal" id="ajustesCotacaoFinal" value="">
+						<div class="row">
+							<div class="form-group col-sm-2">
+								<label id="lb_filtroEmpresa">Filtro Pesquisa</label>
+								<select class="form-control" name="filtroEmpresa" id="filtroEmpresa"
+									onchange="alteraTXT(this.id)">
+									<option value="DESCRICAO">Razão Social</option>
+									<option value="CNPJ">CNPJ</option>
+								</select>
+
+								<input type="hidden" name="filtroEmpresaTXT" id="filtroEmpresaTXT" value="DESCRICAO">
+							</div>
+							<div class="form-group col-md-5">
+								<label id="lb_razaoSocialTEMP">Razão Social/CNPJ</label>
+								<select class="js-example-basic-single form-control" name="razaoSocialTEMP"
+									id="razaoSocialTEMP"></select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="cnpjTEMP">CNPJ</label>
+								<input type="text" name="cnpjTEMP" id="cnpjTEMP" class="form-control"
+									mask="00.000.000/0000-00" readonly>
+								<input type="hidden" name="lojaTEMP" id="lojaTEMP" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="cepTEMP">CEP</label>
+								<input type="text" name="cepTEMP" id="cepTEMP" class="form-control" mask="00000-000"
+									readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-2">
+								<label for="estadoTEMP">Estado</label>
+								<input type="text" name="estadoTEMP" id="estadoTEMP" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="cidadeTEMP">Cidade</label>
+								<input type="text" name="cidadeTEMP" id="cidadeTEMP" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="bairroTEMP">Bairro</label>
+								<input type="text" name="bairroTEMP" id="bairroTEMP" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="enderecoTEMP">Logradouro</label>
+								<input type="text" name="enderecoTEMP" id="enderecoTEMP" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="complementoTEMP">Complemento</label>
+								<input type="text" name="complementoTEMP" id="complementoTEMP" class="form-control"
+									readonly>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-4">
+								<label>Contato</label>
+								<input type="text" name="contatoTEMP" id="contatoTEMP" class="form-control"
+									onchange="validaEdicao(this.id,'text')">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="emailFornecTEMP">E-mail</label>
+								<input type="text" name="emailFornecTEMP" id="emailFornecTEMP" class="form-control"
+									onchange="validaEdicao(this.id,'email')">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="telefoneFornecTEMP">Telefone</label>
+								<input type="text" name="telefoneFornecTEMP" id="telefoneFornecTEMP"
+									class="form-control" mask="(00) 00000-0000" onchange="validaEdicao(this.id,'text')">
+								<input type="hidden" name="numLinhaFornecedor" id="numLinhaFornecedor">
+							</div>
+						</div>
+						<div class="row" id="msgErrotbCotacao" style="display:none;">
+							<div class="alert alert-danger" role="alert">
+								Atenção! Os campos em destaque são obrigatórios ou estão com informações incorretas!
+							</div>
+						</div>
+
+						<div class="row" id="msgErroCotacaoConcluida" style="display:none;">
+							<div class="alert alert-danger" role="alert">
+								Atenção! Necessário que ao menos uma cotação esteja concluída e com total maior que
+								zero!
+							</div>
+						</div>
+
+						<div class="row" style="float:right">
+							<div class="form-group col-md-2">
+								<button type="button" class="btn btn-success" id="btnAddFornecedor"
+									onclick="addtbCotacao()" style="margin-top: 24px;">Adicionar</button>
+								<button type="button" class="btn btn-success" id="btnSaveFornecedor"
+									onclick="saveFornecedor()" style="margin-top: 24px;display:none">Salvar</button>
+								<button type="button" class="btn btn-success" id="btnOcultaFornecedor"
+									onclick="ocultaFornecedor()" style="margin-top: 24px;display:none">Ocultar</button>
+							</div>
+						</div>
+					</div>
+					<!-- ==================================================================================
+													CABECALHO COTACAO
+					=======================================================================================-->
+					<div class="row pnCotacao">
+						<div class="col-sm-12">
+							<table class="table table-bordered" id="titleFornec" style="margin-bottom:0px;">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" id="fornec_tr" colspan="4"><span
+												id="title-tbCotacao"></span></th>
+									</tr>
+								</thead>
+							</table>
+							<table class="table table-bordered" id="tbCotacao" tablename="tbCotacao" noaddbutton="true">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" style="width:40%">Razão Social</th>
+										<th class="align-middle custom-th">Status Cotação</th>
+										<th class="align-middle custom-th">Cotação Vencedora</th>
+										<th class="align-middle custom-th" style="text-align:center">Data Resposta</th>
+										<th class="align-middle custom-th" style="text-align:center">Total Cotação</th>
+										<th class="align-middle custom-th" style="text-align:center">Previsão Entrega
+										</th>
+										<th class="align-middle custom-th" style="text-align:center">Previsão Pagamento
+										</th>
+										<th class="align-middle custom-th" style="width:8%">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="hidden" class="exclude" name="excludetbCotacao"
+												id="excludetbCotacao">
+
+											<input type="hidden" class="form-control" name="numLinhaCotacao"
+												id="numLinhaCotacao">
+											<input type="hidden" class="form-control" name="numFluigCotacao"
+												id="numFluigCotacao">
+											<input type="hidden" class="form-control" name="dataCotacao"
+												id="dataCotacao">
+											<input type="hidden" class="form-control" name="dataCotacaoFormat"
+												id="dataCotacaoFormat">
+											<input type="hidden" name="anoCotacao" id="anoCotacao">
+											<input type="hidden" name="mesCotacao" id="mesCotacao">
+											<input type="hidden" class="form-control" name="cnpj" id="cnpj">
+											<input type="hidden" name="loja" id="loja">
+											<input type="hidden" name="cep" id="cep">
+											<input type="hidden" name="estado" id="estado">
+											<input type="hidden" name="bairro" id="bairro">
+											<input type="hidden" name="endereco" id="endereco">
+											<input type="hidden" name="complemento" id="complemento">
+											<input type="hidden" name="contato" id="contato">
+											<input type="hidden" name="telefoneFornec" id="telefoneFornec">
+											<input type="hidden" class="form-control" name="emailFornec"
+												id="emailFornec"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="text" class="form-control" name="razaoSocial" id="razaoSocial"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="statusCotacao"
+												id="statusCotacao"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="hidden" name="totalItens" id="totalItens">
+											<input type="hidden" name="totalDescontos" id="totalDescontos">
+											<input type="hidden" name="totalImpostos" id="totalImpostos">
+											<input type="hidden" name="totalFrete" id="totalFrete">
+											<input type="hidden" name="formaPagamento" id="formaPagamento">
+										</td>
+										<td>
+											<input type="text" class="form-control" name="cotacaoFinal"
+												id="cotacaoFinal"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="dataRespCotacao"
+												id="dataRespCotacao"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+											<input type="hidden" name="dataRespCotacaoFormat"
+												id="dataRespCotacaoFormat">
+											<input type="hidden" name="anoRespCotacao" id="anoRespCotacao">
+											<input type="hidden" name="mesRespCotacao" id="mesRespCotacao">
+										</td>
+										<td>
+											<input type="text" class="form-control" name="totalCotacao"
+												id="totalCotacao"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+											<input type="hidden" name="qtdDiasPrevEntrega" id="qtdDiasPrevEntrega">
+											<input type="text" class="form-control" name="previsaoEntrega"
+												id="previsaoEntrega"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+										</td>
+										<td>
+											<input type="hidden" name="qtdDiasPrevPagamento" id="qtdDiasPrevPagamento">
+											<input type="text" class="form-control" name="previsaoPagamento"
+												id="previsaoPagamento"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+										</td>
+										<td>
+											<div id="DIVbtnAcoestbCotacao" style="text-align:center;"></div>
+											<input type="hidden" class="form-control" name="acoesFornecedores"
+												id="acoesFornecedores">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- ==================================================================================
+													ITENS COTACAO
+					=======================================================================================-->
+					<div class="row" id="divItensCotacao">
+						<div class="col-sm-12">
+							<table class="table table-bordered" id="itensCot" style="margin-bottom:0px;">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" id="fornec_tr" colspan="4">ITENS COTAÇÃO</th>
+									</tr>
+								</thead>
+							</table>
+							<table class="table table-bordered" id="tbItensCotacao" tablename="tbItensCotacao"
+								noaddbutton="true">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:5%">Nº
+										</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:35%">Item
+											Solicitado</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Qtd.
+											Solicitada</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Qtd.
+											Disponível</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Vlr. Unit.
+										</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Total Item
+										</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Possui Item
+										</th>
+										<th class="align-middle custom-th thSelecaoItem" style="vertical-align:middle;">
+											Seleção Item</th>
+										<th class="align-middle custom-th thAcoesItensCotacao"
+											style="width:15%;vertical-align:middle;">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="hidden" class="exclude" name="excludetbItensCotacao"
+												id="excludetbItensCotacao">
+											<input type="text" class="form-control" name="numItem" id="numItem"
+												style="padding-left: 0px;padding-right: 0px;text-align:center;background-color: #FFF;color:#363637;font-size:12px;"
+												readonly>
+										</td>
+										<td>
+											<input type="hidden" name="cnpjFornecCotacao" id="cnpjFornecCotacao">
+											<input type="hidden" name="numFluigItemCotacao" id="numFluigItemCotacao">
+											<input type="hidden" name="numLinhaItemCotacao" id="numLinhaItemCotacao">
+											<input type="hidden" name="linhaCotacaoOriginal" id="linhaCotacaoOriginal">
+											<input type="hidden" name="codItemSolicitado" id="codItemSolicitado">
+											<input type="hidden" class="form-control" name="itemDisponibilizado"
+												id="itemDisponibilizado"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="text" class="form-control" name="descItemSolicitado"
+												id="descItemSolicitado"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<textarea class="form-control" name="infoComplItemSC" id="infoComplItemSC"
+												style="display:none;"></textarea>
+											<textarea class="form-control" name="infoComplItemFornec"
+												id="infoComplItemFornec" style="display:none;"></textarea>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="qtdSolicitada"
+												id="qtdSolicitada"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center;"
+												readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="qtdDisponibilizada"
+												id="qtdDisponibilizada"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center;"
+												readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="valUnitario" id="valUnitario"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="hidden" name="freteItem" id="freteItem">
+											<input type="hidden" name="descontoItem" id="descontoItem">
+											<input type="hidden" name="icmsItem" id="icmsItem">
+											<input type="hidden" name="ipiItem" id="ipiItem">
+											<input type="hidden" name="pisItem" id="pisItem">
+											<input type="hidden" name="cofinsItem" id="cofinsItem">
+											<input type="hidden" name="issItem" id="issItem">
+											<input type="hidden" name="inssItem" id="inssItem">
+											<input type="hidden" name="irItem" id="irItem">
+											<input type="hidden" name="csllItem" id="csllItem">
+											<input type="hidden" name="outroImpostoDesc" id="outroImpostoDesc">
+											<input type="hidden" name="outroImpostoVlr" id="outroImpostoVlr">
+										</td>
+										<td>
+											<input type="text" class="form-control" name="totalItem" id="totalItem"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+
+											<input type="hidden" class="form-control" name="optPossuiItem"
+												id="optPossuiItem">
+											<div class="switch switch-warning switch-labels" style="padding-left:15px;">
+												<input id="checkPossuiItem" name="checkPossuiItem" type="checkbox"
+													data-on-Text="Sim" data-off-Text="Não" data-on-color="success"
+													data-off-color="danger" data-size="small"
+													onchange="fnAlteraCheckProduto(this.id)">
+											</div>
+										</td>
+										<td class="thSelecaoItem">
+											<input type="hidden" class="form-control" name="itemCotacaoFinal"
+												id="itemCotacaoFinal">
+											<input type="hidden" class="form-control" name="optEscolheItem"
+												id="optEscolheItem">
+											<div class="switch switch-warning switch-labels" style="padding-left:15px;">
+												<input id="checkEscolheItem" name="checkEscolheItem" type="checkbox"
+													data-on-Text="Sim" data-off-Text="Não" data-on-color="success"
+													data-off-color="primary" data-size="small"
+													onchange="fnAlteraEscolheItem(this.id)">
+											</div>
+										</td>
+										<td class="thAcoesItensCotacao">
+											<div id="DIVbtnItensCotacao" style="text-align:center;"></div>
+											<input type="hidden" class="form-control" name="acoesItensCotacao"
+												id="acoesItensCotacao">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!--###################################################################################################################
+														DETALHE ITEM COTAÇÃO INICIAL
+					######################################################################################################################-->
+					<div class="row" id="divDetalhesItemCotacao" style="display:none;">
+						<div class="panel col-md-6" id="cabecalhoEmpOrigem" style="display:none;">
+							<div class="form-group col-md-12"
+								style="display: flex; justify-content: center; align-items: center;">
+								<h2>Dados da Empresa</h2>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="razaoEmpOrigem">Razão Social</label>
+								<input type="text" name="razaoEmpOrigem" id="razaoEmpOrigem" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="cnpjEmpOrigem">CNPJ</label>
+								<input type="text" name="cnpjEmpOrigem" id="cnpjEmpOrigem" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="comprador">Comprador</label>
+								<input type="text" name="comprador" id="comprador" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="emailComprador">E-mail</label>
+								<input type="text" name="emailComprador" id="emailComprador" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="foneComprador">Telefone</label>
+								<input type="text" name="foneComprador" id="foneComprador" class="form-control">
+							</div>
+							<div class="form-group col-md-12">
+								<label for="endEntrega">Endereço para entrega</label>
+								<input type="text" name="endEntrega" id="endEntrega" class="form-control">
+							</div>
+						</div>
+						<div class="panel col-md-6" id="cabecalhoEmpCotacao" style="display:none;">
+							<div class="form-group col-md-12"
+								style="display: flex; justify-content: center; align-items: center;">
+								<h2>Dados do Fornecedor</h2>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="razaoEmpCotacao">Razão Social</label>
+								<input type="text" name="razaoEmpCotacao" id="razaoEmpCotacao" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="cnpjEmpCotacao">CNPJ</label>
+								<input type="text" name="cnpjEmpCotacao" id="cnpjEmpCotacao" class="form-control">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="estadoEmpCotacao">Estado</label>
+								<input type="text" name="estadoEmpCotacao" id="estadoEmpCotacao" class="form-control">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="cidadeEmpCotacao">Cidade</label>
+								<input type="text" name="cidadeEmpCotacao" id="cidadeEmpCotacao" class="form-control">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="contatoEmpCotacao">Contato</label>
+								<input type="text" name="contatoEmpCotacao" id="contatoEmpCotacao" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="emailEmpCotacao">E-mail</label>
+								<input type="text" name="emailEmpCotacao" id="emailEmpCotacao" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="foneEmpCotacao">Telefone</label>
+								<input type="text" name="foneEmpCotacao" id="foneEmpCotacao" class="form-control">
+							</div>
+						</div>
+						<div class="col-sm-12" style="margin-bottom:15px;margin-left:15px;display:none">
+							<label class="" for="checkPossuiItem">Possui Item</label>
+							<div class="switch switch-warning switch-labels" style="padding-left:15px;">
+								<input id="checkPossuiItemCT" name="checkPossuiItemCT" type="checkbox"
+									data-on-Text="Sim" data-off-Text="Não" data-on-color="success"
+									data-off-color="danger" data-size="small">
+							</div>
+							<input type="hidden" name="numLinhaItemCT" id="numLinhaItemCT">
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group col-md-6">
+								<label for="descItemCT">Item Solicitado</label>
+								<input type="text" name="descItemCT" id="descItemCT" class="form-control" readonly>
+								<input type="hidden" name="codItemCT" id="codItemCT">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="itemDisponibilizadoCT">Item Disponibilizado</label>
+								<input type="text" name="itemDisponibilizadoCT" id="itemDisponibilizadoCT"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="infoComplItemSCCT">Informação Complementar Sobre o Item
+									Solicitado</label><br>
+								&nbsp;&nbsp;<i class="flaticon flaticon-important icon-sm" aria-hidden="true"
+									style="color: #3aa0c9;font-size: 17px;"></i>&nbsp;<span
+									class="text-info">Características solicitadas como marca, modelo, tamanho, garantia,
+									etc.</span>
+								<textarea name="infoComplItemSCCT" id="infoComplItemSCCT" class="form-control"
+									readonly></textarea>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="infoComplItemFornecCT">Informação Complementar do Fornecedor Sobre o Item
+									Disponibilizado</label><br>
+								&nbsp;&nbsp;<i class="flaticon flaticon-important icon-sm" aria-hidden="true"
+									style="color: #3aa0c9;font-size: 17px;"></i>&nbsp;<span
+									class="text-info">Características do item disponibilizado</span>
+								<textarea name="infoComplItemFornecCT" id="infoComplItemFornecCT"
+									class="form-control"></textarea>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="qtdSolicitadaCT">Qtd. Solicitada</label>
+								<input type="text" name="qtdSolicitadaCT" id="qtdSolicitadaCT" class="form-control"
+									readonly>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="qtdDisponibilizadaCT">Qtd. Disponibilizada</label>
+								<input type="text" name="qtdDisponibilizadaCT" id="qtdDisponibilizadaCT"
+									class="form-control" onchange="formataInt(this.id),calculaTotalItem()"
+									onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="valUnitarioCT">Valor Unitário</label>
+								<input type="text" name="valUnitarioCT" id="valUnitarioCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="freteItemCT">Frete</label>
+								<input type="text" name="freteItemCT" id="freteItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="descontoItemCT">Desconto</label>
+								<input type="text" name="descontoItemCT" id="descontoItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="icmsItemCT">ICMS</label>
+								<input type="text" name="icmsItemCT" id="icmsItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="ipiItemCT">IPI</label>
+								<input type="text" name="ipiItemCT" id="ipiItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="pisItemCT">PIS</label>
+								<input type="text" name="pisItemCT" id="pisItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="cofinsItemCT">COFINS</label>
+								<input type="text" name="cofinsItemCT" id="cofinsItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="issItemCT">ISS</label>
+								<input type="text" name="issItemCT" id="issItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="inssItemCT">INSS</label>
+								<input type="text" name="inssItemCT" id="inssItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="irItemCT">IR</label>
+								<input type="text" name="irItemCT" id="irItemCT" class="form-control" data-thousands="."
+									data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="csllItemCT">CSLL</label>
+								<input type="text" name="csllItemCT" id="csllItemCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="outroImpostoDescCT">Desc. Outro Imposto</label>
+								<input type="text" name="outroImpostoDescCT" id="outroImpostoDescCT"
+									class="form-control">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="outroImpostoVlrCT">Valor Outro Imposto</label>
+								<input type="text" name="outroImpostoVlrCT" id="outroImpostoVlrCT" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ " onchange="calculaTotalItem()">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="totalItemCT">Total Item</label>
+								<input type="text" name="totalItemCT" id="totalItemCT" class="form-control" readonly
+									style="background-color:#FFF;color:#595a5b;font-weight: bold;">
+							</div>
+							<div class="form-group col-md-4" style="float:right;">
+								<div class="form-group col-md-2">
+									<button type="button" class="btn btn-success" id="btnSaveItem"
+										onclick="salvaItemCotacao()"
+										style="margin-top: 24px;display:none">Salvar</button>
+									<button type="button" class="btn btn-success" id="btnOcultaItem"
+										onclick="ocultaItemCotacao()"
+										style="margin-top: 24px;display:none">Ocultar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--###################################################################################################################
+														RESUMO COTAÇÃO INICIAL
+					######################################################################################################################-->
+					<div class="row" id="divResumoCotacao" style="display:none;">
+						<div class="col-sm-12">
+							<div class="form-group col-md-12" style="display: flex; align-items: center;">
+								<h2><i class="flaticon flaticon-monetization-on icon-md"
+										aria-hidden="true"></i>&nbsp;Resumo da Cotação</h2>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalItensCT">Total dos Itens</label>
+								<input type="hidden" name="cnpjResumoTotal" id="cnpjResumoTotal">
+								<input type="hidden" name="linhaCotacaoOriginalCT" id="linhaCotacaoOriginalCT">
+								<input type="text" name="totalItensCT" id="totalItensCT" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalDescontosCT">Descontos</label>
+								<input type="text" name="totalDescontosCT" id="totalDescontosCT" class="form-control"
+									readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalImpostosCT">Impostos</label>
+								<input type="text" name="totalImpostosCT" id="totalImpostosCT" class="form-control"
+									readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalFreteCT">Frete</label>
+								<input type="text" name="totalFreteCT" id="totalFreteCT" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalCotacaoCT">Total da Cotação</label>
+								<input type="text" name="totalCotacaoCT" id="totalCotacaoCT" class="form-control"
+									readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="formaPagamentoCT">Forma de Pagamento</label>
+								<select name="formaPagamentoCT" id="formaPagamentoCT" class="form-control"
+									onchange="setFormaPagamento()">
+									<option value="">Selecione</option>
+									<option value="BOLETO">Boleto</option>
+									<option value="DEPOSITO">Depósito em Conta</option>
+									<option value="PIX">Pix</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="qtdDiasPrevEntregaCT">Prazo de Entrega (dias)</label>
+								<input type="text" name="qtdDiasPrevEntregaCT" id="qtdDiasPrevEntregaCT"
+									class="form-control" onchange="setQtdDiasEntrega()"
+									onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="dataPrevItemCT">Prev Entrega</label>
+								<input type="text" name="dataPrevItemCT" id="dataPrevItemCT" class="form-control"
+									style="background-color:#FFF;color: #5d5c5c;"
+									onchange="validaEdicao(this.id,'date'),setDataPrevEntrega()" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="qtdDiasPrevEntregaCT">Prazo de Pagamento (dias)</label>
+								<input type="text" name="qtdDiasPrevPagamentoCT" id="qtdDiasPrevPagamentoCT"
+									class="form-control" onchange="setQtdDiasEntrega()"
+									onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="dataPrevItemCT">Prev Pagamento</label>
+								<input type="text" name="dataPrevPagItemCT" id="dataPrevPagItemCT" class="form-control"
+									style="background-color:#FFF;color: #5d5c5c;"
+									onchange="validaEdicao(this.id,'date'),setDataPrevEntrega()" readonly>
+							</div>
+							<div class="col-sm-12" style="float:right;text-align:right;" id="divBtnSaveResumo">
+								<button type="button" class="btn btn-success" id="endCotacao"
+									onclick="encerraCotacao()">Salvar e Encerrar</button>
+								<button type="button" class="btn btn-primary" id="hideResumo"
+									onclick="ocultaResumo()">Ocultar</button>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- ==================================================================================
+													DOCUMENTOS COTACAO
+					=======================================================================================-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="flaticon flaticon-paperclip icon-md"
+									aria-hidden="true"></i>&nbsp;&nbsp;Documentos Cotação</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row" id="divAnexos" style="margin-top:20px;">
+								<div class="col-sm-5">
+									<label>
+										<span
+											class="fluigicon fluigicon-paperclip icon-sm"></span><strong>&nbsp;&nbsp;Descrição
+											do Documento</strong></label>
+									<input type="text" class="form-control" name="descDocTemp" id="descDocTemp"
+										placeholder="Informe uma descrição (mínimo 4 caracteres)"
+										onkeyup="exibeBtnUpload(this.value)">
+								</div>
+								<div class="col-sm-5">
+									<label><strong>Documento Referente a:</strong></label>
+									<select class="form-control" name="docReferenteTEMP" id="docReferenteTEMP">
+										<option value="">Selecione</option>
+									</select>
+								</div>
+								<div class="col-md-2" id="btnUploadOFF"
+									style="white-space: nowrap;overflow: auto;margin-top:25px;display:none;">
+									<button type="button" class="btn btn-primary"
+										style="background-color:#bebfbf;border-color:#bebfbf"
+										onclick="emiteAlertaDoc()">Buscar Arquivo</button>
+								</div>
+								<div class="col-md-2" id="btnUpload"
+									style="white-space: nowrap;overflow: auto;margin-top:25px;display:none;">
+									<a class="file-input-wrapper btn btn-info ">
+										<span><strong>Buscar Arquivo</strong></span>
+										<input id="fileupload" type="file" name="files" data-url="/ecm/upload"
+											class="btn btn-primary btn-sm btn-block" title="Buscar Arquivo" />
+									</a>
+								</div>
+							</div>
+							<div class="row" id="listagemAnexos" style="margin-top:20px;">
+								<div class="col-sm-12" id="anexosAcao">
+								</div>
+							</div>
+							<div class="row" id="msgErroAnexos"
+								style="display:none;margin-top:10px;margin-bottom:10px;">
+								<div class="col-sm-12">
+									<a name="pontoAnexos" id="pontoAnexos" style=""></a>
+									<div class="alert alert-danger"
+										style="background-color:#ffd9c7;color:#444341;font-size:14px; font-weight:bold;"
+										role="alert">
+										<strong>Atenção: </strong> Necessário anexar documento(s) que comprovem a
+										execução da ação.
+									</div>
+								</div>
+							</div>
+
+							<div class="row" id="divDocumentosCotacao" style="">
+								<input type="hidden" name="possuiCotacaoFinal" id="possuiCotacaoFinal"
+									class="form-control" value="NAO">
+								<input type="hidden" name="diretorioCotacao" id="diretorioCotacao" class="form-control">
+								<div class="col-sm-12">
+									<table class="table table-bordered" id="docCot" style="margin-bottom:0px;">
+										<thead>
+											<tr>
+												<th class="align-middle custom-th" id="fornec_tr" colspan="4">DOCUMENTOS
+													COTAÇÃO</th>
+											</tr>
+										</thead>
+									</table>
+									<table class="table table-bordered" id="tbDocumentos" tablename="tbDocumentos"
+										noaddbutton="true">
+										<thead>
+											<tr>
+												<th class="align-middle custom-th"
+													style="vertical-align:middle;width:7%">Nº</th>
+												<th class="align-middle custom-th" style="vertical-align:middle;">Doc
+													Referente a</th>
+												<th class="align-middle custom-th" style="vertical-align:middle;">Nome
+													do Documento</th>
+												<th class="align-middle custom-th" style="vertical-align:middle;">
+													Descrição</th>
+												<th class="align-middle custom-th" style="vertical-align:middle;">Resp.
+													Upload</th>
+												<th class="align-middle custom-th" style="vertical-align:middle;">Data
+													Inserção</th>
+												<th class="align-middle custom-th" style="vertical-align:middle;">Ações
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<input type="hidden" class="exclude" name="excludetbDocumentos"
+														id="excludetbDocumentos">
+													<input type="text" class="form-control" name="numDocumento"
+														id="numDocumento"
+														style="padding-left: 0px;padding-right: 0px;text-align:center;background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+													<input type="hidden" name="idDocumento" id="idDocumento">
+													<input type="hidden" name="idDiretorio" id="idDiretorio">
+												</td>
+												<td>
+													<input type="hidden" class="form-control" name="codDocReferente"
+														id="codDocReferente"
+														style="background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+													<input type="text" class="form-control" name="docReferente"
+														id="docReferente"
+														style="background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+												</td>
+												<td>
+													<input type="text" class="form-control" name="nomeDocumento"
+														id="nomeDocumento"
+														style="background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+												</td>
+												<td>
+													<input type="text" class="form-control" name="descDocumento"
+														id="descDocumento"
+														style="background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+													<input type="hidden" class="form-control" name="nomeArquivoUpload"
+														id="nomeArquivoUpload">
+												</td>
+												<td>
+													<input type="text" class="form-control" name="respUpload"
+														id="respUpload"
+														style="background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+													<input type="hidden" class="form-control" name="codRespUpload"
+														id="codRespUpload">
+												</td>
+												<td>
+													<input type="text" class="form-control" name="dataUpload"
+														id="dataUpload"
+														style="background-color: #FFF;color:#363637;font-size:12px;"
+														readonly>
+												</td>
+												<td class="">
+													<div id="DIVbtnTbDocumentos" style="text-align:center;"></div>
+													<input type="hidden" class="acoestbDocumentos"
+														name="acoesTbDocumentos" id="acoesTbDocumentos">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- ==================================================================================
+													CABECALHO COTACAO VENCEDORA
+					=======================================================================================-->
+					<div class="row pnCotacaoFinal" style="display:none">
+						<div class="col-sm-12">
+							<table class="table table-bordered" id="titleFornec" style="margin-bottom:0px;">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" id="fornec_tr" colspan="4"
+											style="background-color:#6e7f99;">
+											<i class="flaticon flaticon-awards icon-md"
+												aria-hidden="true"></i>&nbsp;&nbsp;COTAÇÃO VENCEDORA
+										</th>
+									</tr>
+								</thead>
+							</table>
+							<table class="table table-bordered" id="tbCotacaoFinal" tablename="tbCotacaoFinal"
+								noaddbutton="true">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" style="width:40%">Razão Social</th>
+										<th class="align-middle custom-th">Status Cotação</th>
+										<th class="align-middle custom-th">Cotação Vencedora</th>
+										<th class="align-middle custom-th" style="text-align:center">Data Resposta</th>
+										<th class="align-middle custom-th" style="text-align:center">Total Fornecedor
+										</th>
+										<th class="align-middle custom-th" style="text-align:center">Forma de Pagamento
+										</th>
+										<th class="align-middle custom-th" style="text-align:center">Previsão Entrega
+										</th>
+										<th class="align-middle custom-th" style="text-align:center">Previsão Pagamento
+										</th>
+										<th class="align-middle custom-th" style="width:8%">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="hidden" class="exclude" name="excludetbCotacaoFinal"
+												id="excludetbCotacaoFinal">
+
+											<input type="hidden" class="form-control" name="numLinhaCotacaoCTF"
+												id="numLinhaCotacaoCTF">
+											<input type="hidden" class="form-control" name="numFluigCotacaoCTF"
+												id="numFluigCotacaoCTF">
+											<input type="hidden" class="form-control" name="dataCotacaoCTF"
+												id="dataCotacaoCTF">
+											<input type="hidden" class="form-control" name="dataCotacaoFormatCTF"
+												id="dataCotacaoFormatCTF">
+											<input type="hidden" name="anoCotacaoCTF" id="anoCotacaoCTF">
+											<input type="hidden" name="mesCotacaoCTF" id="mesCotacaoCTF">
+											<input type="hidden" class="form-control" name="cnpjCTF" id="cnpjCTF">
+											<input type="hidden" name="lojaCTF" id="lojaCTF">
+											<input type="hidden" name="cepCTF" id="cepCTF">
+											<input type="hidden" name="estadoCTF" id="estadoCTF">
+											<input type="hidden" name="bairroCTF" id="bairroCTF">
+											<input type="hidden" name="enderecoCTF" id="enderecoCTF">
+											<input type="hidden" name="complementoCTF" id="complementoCTF">
+											<input type="hidden" name="contatoCTF" id="contatoCTF">
+											<input type="hidden" name="telefoneFornecCTF" id="telefoneFornecCTF">
+											<input type="hidden" class="form-control" name="emailFornecCTF"
+												id="emailFornecCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="text" class="form-control" name="razaoSocialCTF"
+												id="razaoSocialCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="statusCotacaoCTF"
+												id="statusCotacaoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="hidden" name="totalItensCTF" id="totalItensCTF">
+											<input type="hidden" name="totalDescontosCTF" id="totalDescontosCTF">
+											<input type="hidden" name="totalImpostosCTF" id="totalImpostosCTF">
+											<input type="hidden" name="totalFreteCTF" id="totalFreteCTF">
+
+										</td>
+										<td>
+											<input type="text" class="form-control" name="cotacaoFinalCTF"
+												id="cotacaoFinalCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="dataRespCotacaoCTF"
+												id="dataRespCotacaoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+											<input type="hidden" name="dataRespCotacaoFormatCTF"
+												id="dataRespCotacaoFormatCTF">
+											<input type="hidden" name="anoRespCotacaoCTF" id="anoRespCotacaoCTF">
+											<input type="hidden" name="mesRespCotacaoCTF" id="mesRespCotacaoCTF">
+										</td>
+										<td>
+											<input type="text" class="form-control" name="totalCotacaoCTF"
+												id="totalCotacaoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="formaPagamentoCTF"
+												id="formaPagamentoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+											<input type="hidden" name="qtdDiasPrevEntregaCTF"
+												id="qtdDiasPrevEntregaCTF">
+											<input type="text" class="form-control" name="previsaoEntregaCTF"
+												id="previsaoEntregaCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+										</td>
+										<td>
+											<input type="hidden" name="qtdDiasPrevPagamentoCTF"
+												id="qtdDiasPrevPagamentoCTF">
+											<input type="text" class="form-control" name="previsaoPagamentoCTF"
+												id="previsaoPagamentoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center"
+												readonly>
+										</td>
+										<td>
+											<div id="DIVbtnAcoestbCotacaoFinal" style="text-align:center;"></div>
+											<input type="hidden" class="form-control" name="acoesFornecedoresCTF"
+												id="acoesFornecedoresCTF">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- ==================================================================================
+													ITENS COTACAO FINAL
+					=======================================================================================-->
+					<div class="row pnCotacaoFinal" id="divItensCotacaoFinal" style="display:none">
+						<div class="col-sm-12">
+							<table class="table table-bordered" id="itensCot" style="margin-bottom:0px;">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" id="fornec_tr" colspan="4"
+											style="background-color:#6e7f99;">
+											<i class="flaticon flaticon-buy-order icon-md"
+												aria-hidden="true"></i>&nbsp;&nbsp;ITENS COTAÇÃO VENCEDORA
+										</th>
+									</tr>
+								</thead>
+							</table>
+							<table class="table table-bordered" id="tbItensCotacaoFinal" tablename="tbItensCotacaoFinal"
+								noaddbutton="true">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:5%">Nº
+										</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:5%">Razão
+											Social</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:35%">Item
+											Solicitado</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Qtd.
+											Solicitada</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Qtd.
+											Disponível</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:10%">Vlr.
+											Unit.</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;width:10%">Total
+											Item</th>
+										<th class="align-middle custom-th" style="vertical-align:middle;">Possui Item
+										</th>
+										<th class="align-middle custom-th thAcoesItensCotacao"
+											style="width:15%;vertical-align:middle;">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="hidden" class="exclude" name="excludetbItensCotacaoFinal"
+												id="excludetbItensCotacaoFinal">
+											<input type="text" class="form-control" name="numItemCTF" id="numItemCTF"
+												style="padding-left: 0px;padding-right: 0px;text-align:center;background-color: #FFF;color:#363637;font-size:12px;"
+												readonly>
+										</td>
+
+										<td>
+											<input type="text" name="cnpjFornecCotacaoCTF" id="cnpjFornecCotacaoCTF"
+												readonly>
+										</td>
+										<td>
+											<input type="hidden" name="numFluigItemCotacaoCTF"
+												id="numFluigItemCotacaoCTF">
+											<input type="hidden" name="numLinhaItemCotacaoCTF"
+												id="numLinhaItemCotacaoCTF">
+											<input type="hidden" name="linhaCotacaoOriginalCTF"
+												id="linhaCotacaoOriginalCTF">
+											<input type="hidden" name="codItemSolicitadoCTF" id="codItemSolicitadoCTF">
+											<input type="hidden" class="form-control" name="itemDisponibilizadoCTF"
+												id="itemDisponibilizadoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="text" class="form-control" name="descItemSolicitadoCTF"
+												id="descItemSolicitadoCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<textarea class="form-control" name="infoComplItemSCCTF"
+												id="infoComplItemSCCTF" style="display:none;"></textarea>
+											<textarea class="form-control" name="infoComplItemFornecCTF"
+												id="infoComplItemFornecCTF" style="display:none;"></textarea>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="qtdSolicitadaCTF"
+												id="qtdSolicitadaCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center;"
+												readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="qtdDisponibilizadaCTF"
+												id="qtdDisponibilizadaCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;text-align:center;"
+												readonly>
+										</td>
+										<td>
+											<input type="text" class="form-control" name="valUnitarioCTF"
+												id="valUnitarioCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+											<input type="hidden" name="freteItemCTF" id="freteItemCTF">
+											<input type="hidden" name="descontoItemCTF" id="descontoItemCTF">
+											<input type="hidden" name="icmsItemCTF" id="icmsItemCTF">
+											<input type="hidden" name="ipiItemCTF" id="ipiItemCTF">
+											<input type="hidden" name="pisItemCTF" id="pisItemCTF">
+											<input type="hidden" name="cofinsItemCTF" id="cofinsItemCTF">
+											<input type="hidden" name="issItemCTF" id="issItemCTF">
+											<input type="hidden" name="inssItemCTF" id="inssItemCTF">
+											<input type="hidden" name="irItemCTF" id="irItemCTF">
+											<input type="hidden" name="csllItemCTF" id="csllItemCTF">
+											<input type="hidden" name="outroImpostoDescCTF" id="outroImpostoDescCTF">
+											<input type="hidden" name="outroImpostoVlrCTF" id="outroImpostoVlrCTF">
+										</td>
+										<td>
+											<input type="text" class="form-control" name="totalItemCTF"
+												id="totalItemCTF"
+												style="background-color: #FFF;color:#363637;font-size:12px;" readonly>
+										</td>
+										<td>
+											<input type="hidden" class="form-control" name="itemCotacaoFinalCTF"
+												id="itemCotacaoFinalCTF">
+											<input type="hidden" class="form-control" name="optPossuiItemCTF"
+												id="optPossuiItemCTF">
+											<div class="switch switch-warning switch-labels" style="padding-left:15px;">
+												<input id="checkPossuiItemCTF" name="checkPossuiItemCTF" type="checkbox"
+													data-on-Text="Sim" data-off-Text="Não" data-on-color="success"
+													data-off-color="danger" data-size="small"
+													onchange="fnAlteraCheckProdutoFinal(this.id)">
+											</div>
+										</td>
+										<td class="thAcoesItensCotacaoFinal">
+											<div id="DIVbtnItensCotacaoFinal" style="text-align:center;"></div>
+											<input type="hidden" class="form-control" name="acoesItensCotacaoCTF"
+												id="acoesItensCotacaoCTF">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!--###################################################################################################################
+														DETALHE ITEM COTAÇÃO FINAL
+					######################################################################################################################-->
+					<div class="row" id="divDetalhesItemCotacaoFinal" style="display:none;">
+						<div class="panel col-md-6" id="cabecalhoEmpOrigemCTF" style="display:none;">
+							<div class="form-group col-md-12"
+								style="display: flex; justify-content: center; align-items: center;">
+								<h2>Dados da Empresa</h2>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="razaoEmpOrigemCTF_resumo">Razão Social</label>
+								<input type="text" name="razaoEmpOrigemCTF_resumo" id="razaoEmpOrigemCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="cnpjEmpOrigemCTF_resumo">CNPJ</label>
+								<input type="text" name="cnpjEmpOrigemCTF_resumo" id="cnpjEmpOrigemCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="compradorCTF_resumo">Comprador</label>
+								<input type="text" name="compradorCTF_resumo" id="compradorCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="emailCompradorCTF_resumo">E-mail</label>
+								<input type="text" name="emailCompradorCTF_resumo" id="emailCompradorCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="foneCompradorCTF_resumo">Telefone</label>
+								<input type="text" name="foneCompradorCTF_resumo" id="foneCompradorCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-12">
+								<label for="endEntregaCTF_resumo">Endereço para entrega</label>
+								<input type="text" name="endEntregaCTF_resumo" id="endEntregaCTF_resumo"
+									class="form-control">
+							</div>
+						</div>
+						<div class="panel col-md-6" id="cabecalhoEmpCotacaoFinal" style="display:none;">
+							<div class="form-group col-md-12"
+								style="display: flex; justify-content: center; align-items: center;">
+								<h2>Dados do Fornecedor</h2>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="razaoEmpCotacaoCTF_resumo">Razão Social</label>
+								<input type="text" name="razaoEmpCotacaoCTF_resumo" id="razaoEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="cnpjEmpCotacaoCTF_resumo">CNPJ</label>
+								<input type="text" name="cnpjEmpCotacaoCTF_resumo" id="cnpjEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="estadoEmpCotacaoCTF_resumo">Estado</label>
+								<input type="text" name="estadoEmpCotacaoCTF_resumo" id="estadoEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="cidadeEmpCotacaoCTF_resumo">Cidade</label>
+								<input type="text" name="cidadeEmpCotacaoCTF_resumo" id="cidadeEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="contatoEmpCotacaoCTF_resumo">Contato</label>
+								<input type="text" name="contatoEmpCotacaoCTF_resumo" id="contatoEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="emailEmpCotacaoCTF_resumo">E-mail</label>
+								<input type="text" name="emailEmpCotacaoCTF_resumo" id="emailEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="foneEmpCotacaoCTF_resumo">Telefone</label>
+								<input type="text" name="foneEmpCotacaoCTF_resumo" id="foneEmpCotacaoCTF_resumo"
+									class="form-control">
+							</div>
+						</div>
+						<div class="col-sm-12" style="margin-bottom:15px;margin-left:15px;display:none">
+							<label class="" for="checkPossuiItemCTF_resumo">Possui Item</label>
+							<div class="switch switch-warning switch-labels" style="padding-left:15px;">
+								<input id="checkPossuiItemCTCTF_resumo" name="checkPossuiItemCTCTF_resumo"
+									type="checkbox" data-on-Text="Sim" data-off-Text="Não" data-on-color="success"
+									data-off-color="danger" data-size="small">
+							</div>
+							<input type="hidden" name="numLinhaItemCTF_resumo" id="numLinhaItemCTF_resumo">
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group col-md-6">
+								<label for="descItemCTF_resumo">Item Solicitado</label>
+								<input type="text" name="descItemCTF_resumo" id="descItemCTF_resumo"
+									class="form-control" readonly>
+								<input type="hidden" name="codItemCTF_resumo" id="codItemCTF_resumo">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="itemDisponibilizadoCTF_resumo">Item Disponibilizado</label>
+								<input type="text" name="itemDisponibilizadoCTF_resumo"
+									id="itemDisponibilizadoCTF_resumo" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="infoComplItemSCCTF_resumo">Informação Complementar Sobre o Item
+									Solicitado</label><br>
+								&nbsp;&nbsp;<i class="flaticon flaticon-important icon-sm" aria-hidden="true"
+									style="color: #3aa0c9;font-size: 17px;"></i>&nbsp;<span
+									class="text-info">Características solicitadas como marca, modelo, tamanho, garantia,
+									etc.</span>
+								<textarea name="infoComplItemSCCTF_resumo" id="infoComplItemSCCTF_resumo"
+									class="form-control" readonly></textarea>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="infoComplItemFornecCTF_resumo">Informação Complementar do Fornecedor Sobre o
+									Item Disponibilizado</label><br>
+								&nbsp;&nbsp;<i class="flaticon flaticon-important icon-sm" aria-hidden="true"
+									style="color: #3aa0c9;font-size: 17px;"></i>&nbsp;<span
+									class="text-info">Características do item disponibilizado</span>
+								<textarea name="infoComplItemFornecCTF_resumo" id="infoComplItemFornecCTF_resumo"
+									class="form-control"></textarea>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="qtdSolicitadaCTF_resumo">Qtd. Solicitada</label>
+								<input type="text" name="qtdSolicitadaCTF_resumo" id="qtdSolicitadaCTF_resumo"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="qtdDisponibilizadaCTF_resumo">Qtd. Disponibilizada</label>
+								<input type="text" name="qtdDisponibilizadaCTF_resumo" id="qtdDisponibilizadaCTF_resumo"
+									class="form-control">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="valUnitarioCTF_resumo">Valor Unitário</label>
+								<input type="text" name="valUnitarioCTF_resumo" id="valUnitarioCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="freteItemCTF_resumo">Frete</label>
+								<input type="text" name="freteItemCTF_resumo" id="freteItemCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="descontoItemCTF_resumo">Desconto</label>
+								<input type="text" name="descontoItemCTF_resumo" id="descontoItemCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="icmsItemCTF_resumo">ICMS</label>
+								<input type="text" name="icmsItemCTF_resumo" id="icmsItemCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="ipiItemCTF_resumo">IPI</label>
+								<input type="text" name="ipiItemCTF_resumo" id="ipiItemCTF_resumo" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="pisItemCTF_resumo">PIS</label>
+								<input type="text" name="pisItemCTF_resumo" id="pisItemCTF_resumo" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="cofinsItemCTF_resumo">COFINS</label>
+								<input type="text" name="cofinsItemCTF_resumo" id="cofinsItemCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="issItemCTF_resumo">ISS</label>
+								<input type="text" name="issItemCTF_resumo" id="issItemCTF_resumo" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="inssItemCTF_resumo">INSS</label>
+								<input type="text" name="inssItemCTF_resumo" id="inssItemCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="irItemCTF_resumo">IR</label>
+								<input type="text" name="irItemCTF_resumo" id="irItemCTF_resumo" class="form-control"
+									data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="csllItemCTF_resumo">CSLL</label>
+								<input type="text" name="csllItemCTF_resumo" id="csllItemCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="outroImpostoDescCTF_resumo">Desc. Outro Imposto</label>
+								<input type="text" name="outroImpostoDescCTF_resumo" id="outroImpostoDescCTF_resumo"
+									class="form-control">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="outroImpostoVlrCTF_resumo">Valor Outro Imposto</label>
+								<input type="text" name="outroImpostoVlrCTF_resumo" id="outroImpostoVlrCTF_resumo"
+									class="form-control" data-thousands="." data-decimal="," data-prefix="R$ ">
+							</div>
+
+							<div class="form-group col-md-2">
+								<label for="totalItemCTF_resumo">Total Item</label>
+								<input type="text" name="totalItemCTF_resumo" id="totalItemCTF_resumo"
+									class="form-control" readonly
+									style="background-color:#FFF;color:#595a5b;font-weight: bold;">
+							</div>
+							<div class="form-group col-md-4" style="float:right;">
+								<div class="form-group col-md-2">
+									<button type="button" class="btn btn-success" id="btnOcultaItemCTF"
+										onclick="ocultaItemCotacaoFinal()"
+										style="margin-top: 24px;display:none">Ocultar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!--###################################################################################################################
+														RESUMO COTAÇÃO FINAL
+					######################################################################################################################-->
+					<div class="row" id="divResumoCotacaoFinal" style="">
+						<div class="col-sm-12">
+							<div class="form-group col-md-12" style="display: flex; align-items: center;">
+								<h2><i class="flaticon flaticon-monetization-on icon-md"
+										aria-hidden="true"></i>&nbsp;Resumo da Cotação Final</h2>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalItensCTF_resumo">Total dos Itens</label>
+								<input type="hidden" name="cnpjResumoTotalCTF_resumo" id="cnpjResumoTotalCTF_resumo">
+								<input type="hidden" name="linhaCotacaoOriginalCTF_resumo"
+									id="linhaCotacaoOriginalCTF_resumo">
+								<input type="text" name="totalItensCTF_resumo" id="totalItensCTF_resumo"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalDescontosCTF_resumo">Descontos</label>
+								<input type="text" name="totalDescontosCTF_resumo" id="totalDescontosCTF_resumo"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalImpostosCTF_resumo">Impostos</label>
+								<input type="text" name="totalImpostosCTF_resumo" id="totalImpostosCTF_resumo"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalFreteCTF_resumo">Frete</label>
+								<input type="text" name="totalFreteCTF_resumo" id="totalFreteCTF_resumo"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="totalCotacaoCTF_resumo">Total da Cotação</label>
+								<input type="text" name="totalCotacaoCTF_resumo" id="totalCotacaoCTF_resumo"
+									class="form-control" readonly>
+							</div>
+						</div>
+					</div>
+
+					<div class="row" id="msgErroJustCF" style="display:none;">
+						<div class="alert alert-danger" role="alert">
+							Atenção! Necessário que ao menos uma cotação esteja concluída e com total maior que zero!
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12" style="padding-left: 25px;padding-right: 25px;"
+							id="divMotivoEscolhaCotacao" style="display:none;">
+							<label for="motivoEscolhaCotacao">Justificativa de Escolha de Cotação Vencedora</label>
+							<textarea class="form-control" name="motivoEscolhaCotacao" id="motivoEscolhaCotacao"
+								rows="2"></textarea>
+						</div>
+					</div>
+
+					<div class="well" style="max-width: 400px; margin: 0 auto 10px;display:none"
+						id="divBtnGeraSolContratos">
+						<button type="button" id="btnGeraSC" class="btn btn-success btn-lg btn-block"
+							onclick="criaSolDeContratos()" style="padding-bottom:10px"><span
+								style="font-size:16px;">Criar Solicitação de Contratos</span>&nbsp;&nbsp;<i
+								class="flaticon flaticon-play-filled icon-md" aria-hidden="true"></i></button>
+					</div>
+					<div class="well" style="max-width: 400px; margin: 0 auto 10px;display:none"
+						id="divBtnGeraPedCompras">
+						<button type="button" id="btnGeraSC" class="btn btn-success btn-lg btn-block"
+							onclick="criaPedDeCompra()" style="padding-bottom:10px"><span style="font-size:16px;">Criar
+								Pedido de Compras</span>&nbsp;&nbsp;<i class="flaticon flaticon-play-filled icon-md"
+								aria-hidden="true"></i></button>
+					</div>
+
+
+
+					<div class="col-md-12" id="divAnexosFornecedor" style="display:none;">
+						<div class="form-group col-md-12" id="DIVanexosFornecedor"
+							style="display: flex; align-items: center;">
+							<h2>Anexos do Fornecedor</h2>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<script type="text/javascript">
+
+				var beforeSendValidate = function (numState, nextState) {
+
+					var numSolicitacao = $("#numSolicitacao").val();
+
+
+					if (numState == 0 || numState == 4) {
+						var contErro = validaAtivInicio("INICIO");
+						if (contErro > 0) {
+							throw ("Verifique o conteúdo dos campos em destaque para prosseguir!");
+						}
+						//imprimeTBCotacao();
+					}
+
+					if (numState == 5) {
+						var contErro = validaAtiv5();
+						if (contErro > 0) {
+							throw ("Verifique o conteúdo dos campos em destaque para prosseguir!");
+						}
+						//imprimeTBCotacao();
+					}
+
+					if (numState == 10) {
+						var contErro = validaAtiv10();
+						if (contErro > 0) {
+							throw ("Verifique o conteúdo dos campos em destaque para prosseguir!");
+						}
+						//imprimeTBCotacao();
+					}
+
+					if (numState == 12) {
+						var contErro = validaAtiv12();
+						if (contErro > 0) {
+							throw ("Verifique o conteúdo dos campos em destaque para prosseguir!");
+						}
+						//imprimeTBCotacao();
+					}
+				}
+			</script>
+
+		</form>
+	</div>
+</body>
+
+</html>

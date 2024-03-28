@@ -1,0 +1,180 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="themes/default/style.min.css">
+	<link rel="stylesheet" href="themes/default-dark/style.min.css">
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./Avaliacao_RH.js" charset="utf-8"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<style>
+		.treeview ul {
+			list-style: none;
+			padding-left: 1em;
+		}
+
+		.treeview li {
+			position: relative;
+		}
+
+		.treeview li:before {
+			content: "▸";
+			position: absolute;
+			left: -1em;
+			top: 0;
+			cursor: pointer;
+		}
+
+		.treeview li.closed:before {
+			content: "▾";
+		}
+
+		.treeview li .nested {
+			display: none;
+		}
+
+		.treeview li.opened .nested {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_definicao_avaliacao">
+			<div class="panel panel-danger" id="definicao_avaliacao">
+				<div class="panel-heading">
+					<strong class="panel-title"> <i class="flaticon flaticon-form-list icon-md"
+							aria-hidden="true"></i>Definição de Avaliação</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+				<div class="panel-body">
+					<div class="treeview">
+						<ul>
+							<li class="closed">Node 1
+								<ul class="nested">
+									<li>Node 1.1</li>
+									<li>Node 1.2</li>
+								</ul>
+							</li>
+							<li class="closed">Node 2
+								<ul class="nested">
+									<li>Node 2.1</li>
+									<li>Node 2.2</li>
+								</ul>
+							</li>
+							<li>Node 3</li>
+						</ul>
+					</div>
+
+					<script>
+						const treeviewItems = document.querySelectorAll('.treeview li');
+						treeviewItems.forEach(item => {
+							item.addEventListener('click', () => {
+								item.classList.toggle('opened');
+							});
+						});
+					</script>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="Setor">Setor</label>
+							<input type="text" name="Setor" id="Setor" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Gerencia">Gerência</label>
+							<input type="text" name="Gerencia" id="Gerencia" class="form-control" readonly>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="table-responsive" id="div_tabela_pdt">
+							<table class="table table-bordered" id="gradeAvaliados" name="gradeAvaliados">
+								<thead>
+									<tr>
+										<th class="align-middle custom-th" colspan="7" id="Tabela_colab_avaliados">
+											Colaboradores a serem avaliados</th>
+									</tr>
+									<tr>
+										<th class="align-middle custom-th">Avaliado</th>
+										<th class="align-middle custom-th">Avaliação</th>
+										<th class="align-middle custom-th">Gestor Imediato</th>
+										<th class="align-middle custom-th">Autoavaliação</th>
+										<th class="align-middle custom-th">Cliente Interno</th>
+										<th class="align-middle custom-th">Subordinado</th>
+										<th class="align-middle custom-th">Pares</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Henrique Duarte Pirauá Cabral</td>
+										<td><select name="Teste" id="Teste">
+												<option value="Nao">Não será avaliado</option>
+												<option value="90">Avaliação 90°</option>
+												<option value="180">Avaliação 180°</option>
+												<option value="360">Avaliação 360°</option>
+											</select></td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+									</tr>
+									<tr>
+										<td>Jovanny Leite</td>
+										<td><select name="Teste1" id="Teste1">
+												<option value="Nao">Não será avaliado</option>
+												<option value="90">Avaliação 90°</option>
+												<option value="180">Avaliação 180°</option>
+												<option value="360">Avaliação 360°</option>
+											</select></td>
+										<td>Irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+									</tr>
+									<tr>
+										<td>João Genari</td>
+										<td><select name="Teste2" id="Teste2">
+												<option value="Nao">Não será avaliado</option>
+												<option value="90">Avaliação 90°</option>
+												<option value="180">Avaliação 180°</option>
+												<option value="360">Avaliação 360°</option>
+											</select></td>
+										<td>Irá avaliar</td>
+										<td>Irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+										<td>Não irá avaliar</td>
+									</tr>
+									<tr>
+										<td>Diego Paulino</td>
+										<td><select name="Teste3" id="Teste3">
+												<option value="Nao">Não será avaliado</option>
+												<option value="90">Avaliação 90°</option>
+												<option value="180">Avaliação 180°</option>
+												<option value="360">Avaliação 360°</option>
+											</select></td>
+										<td>Irá avaliar</td>
+										<td>Irá avaliar</td>
+										<td>Irá avaliar</td>
+										<td>Irá avaliar</td>
+										<td>Irá avaliar</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	</div>
+</body>
+
+</html>

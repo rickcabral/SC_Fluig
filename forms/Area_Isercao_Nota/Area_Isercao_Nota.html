@@ -1,0 +1,55 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<link type="text/css" rel="stylesheet" href="./stylesheet.css">
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./Script_area_isercao.js"></script>
+
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_isercao_nota">
+			<div class="panel panel-primary" id="isercao_nota">
+				<div class="panel-heading">
+					<strong class="panel-title">
+						<i class="flaticon flaticon-event-note icon-md" aria-hidden="true"></i>Iserção de Nota
+					</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="avaliacao_fornec">Avalie seu fornecedor:</label>
+							<select name="avaliacao_fornec" id="avaliacao_fornec" class="form-control">
+								<option value="">-----------</option>
+								<option value="Excelente">Excelente</option>
+								<option value="Bom">Bom</option>
+								<option value="Regular">Regular</option>
+								<option value="Ruim">Ruim</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Upload_nota">Faça o upload da nota:</label>
+							<input type="file" name="upload_nota" id="upload_nota" class="form-control">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label for="Coments_fornec">Comente sobre o fornecedor e a motivação de sua
+								avaliação:</label>
+							<textarea name="Coments_fornec" id="Coments_fornec" cols="30" rows="5"
+								class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_pedido_compras">
+			<div class="panel panel-primary" id="Pedido_Compras">
+				<div class="panel-heading">
+					<strong class="panel-title"> <i aria-hidden="true"></i>Pedido de Compras
+					</strong>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="Filial">Filial</label>
+							<input type="text" name="Filial" id="Filial" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Fonrnecedor">Fornecedor</label>
+							<input type="text" name="Fornecedor" id="Fornecedor" class="form-control" readonly>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="ID_SC">Número de Solicitação</label>
+							<input type="text" name="ID_SC" id="ID_SC" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="ID_Pedido">Número do Pedido</label>
+							<input type="text" name="ID_Pedido" id="ID_Pedido" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Solicitante">Solicitante</label>
+							<input type="text" name="Solicitante" id="Solicitante" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Comprador">Comprador</label>
+							<input type="text" name="Comprador" id="Comprador" class="form-control" readonly>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="Dt_criacao_pedido">Data da criação do pedido de compra</label>
+							<input type="text" name="Dt_criacao_pedido" id="Dt_criacao_pedido" class="form-control"
+								readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Prazo">Prazo de pagamento</label>
+							<input type="text" name="Prazo" id="Prazo" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Condicao_Pagamento">Condição de pagamento</label>
+							<input type="text" name="Condicao_Pagamento" id="Condicao_Pagamento" class="form-control"
+								readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Valor_pedido">Valor total do pedido</label>
+							<input type="text" name="Valor_pedido" id="Valor_pedido" class="form-control" readonly>
+						</div>
+					</div>
+					<div class="form-group col-md-12" id="div_itens_pedido">
+						<div class="panel panel-primary" id="Itens_Pedido">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <i class="flaticon flaticon-product icon-md"
+										aria-hidden="true"></i>Itens do pedido
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-bordered" id="tabelaChecklist" name="tabelaChecklist">
+										<thead class="sticky-header">
+											<tr>
+												<th class="align-middle custom-th">Produto</th>
+												<th class="align-middle custom-th">Centro de Custo</th>
+												<th class="align-middle custom-th">Quantidade</th>
+												<th class="align-middle custom-th">Valor Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<TD>MONITOR DELL 24</TD>
+											<td>SERVICE DESK</td>
+											<TD>3</TD>
+											<TD></TD>
+										</tbody>
+									</table>
+									<div class="form-group col-md-12">
+										<label for="Obs">Observações Gerais</label>
+										<textarea name="Obs" id="Obs" cols="30" rows="10" class="form-control"
+											readonly></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="text-align: center;">
+						<button class="btn btn-success">Gerar Pedido de compra</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

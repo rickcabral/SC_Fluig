@@ -1,0 +1,19 @@
+.Top_area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fornec_tr{
+
+    background-color: #696969;
+    color: white;
+    text-align: center;
+
+}
+
+.buttons{
+    display: flex;
+    justify-content: right;
+    align-items: end;
+}

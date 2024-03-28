@@ -1,0 +1,444 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="Checklist_Contratos.js"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form">
+			<div class="panel panel-primary" id="Checklist_Contratos">
+				<div class="panel-heading">
+					<strong class="panel-title"> <i aria-hidden="true"></i>Checklist Contratual
+					</strong>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Dados de Contrato
+									</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-4">
+										<label for="Num_Contrato">Número do Contrato</label>
+										<input type="text" name="Num_Contrato" id="Num_Contrato" class="form-control" readonly>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="Nm_Solicitante">Nome do Solicitante</label>
+										<input type="text" name="Nm_Solicitante" id="Nm_Solicitante"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-4">
+										<label for="Email_Solicitante">E-mail do Solicitante</label>
+										<input type="text" name="Email_Solicitante" id="Email_Solicitante"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="Contratante">Contratante</label>
+										<input type="text" name="Contratante" id="Contratante" class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="Contratada">Contratada</label>
+										<input type="text" name="Contratada" id="Contratada" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Dados do Destinatário
+									</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nm_Destinatario">Nome do Destinatario</label>
+										<input type="text" name="Nm_Destinatario" id="Nm_Destinatario"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="Email_destinatario">Email do destinatario</label>
+										<input type="text" name="Email_destinatario" id="Email_destinatario"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Documentos_assinados">Documentos Assinados</label>
+										<input type="file" id="fileInput" name="Documentos_assinados"
+											class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<strong class="panel-title"> <i aria-hidden="true"></i>Informações Contratuais
+								</strong>
+							</div>
+							<div class="panel-body">
+								<div class="form-group col-md-12">
+									<label for="Objeto">Objeto Contratual</label>
+									<textarea name="Objeto" id="Objeto" cols="30" rows="5"
+										class="form-control"></textarea>
+								</div>
+								<div class="form-group col-md-4">
+									<label for="Prazo">Prazo</label>
+									<input type="date" name="Prazo" id="Prazo" class="form-control">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="Pz_Inicio">Prazo de Início Contratual</label>
+									<input type="date" name="Pz_Inicio" id="Pz_Inicio" class="form-control">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="Val">Valor Contratual</label>
+									<input type="text" name="Val" id="Val" class="form-control"
+										placeholder="Digite o valor contratual" mask='#.##0,00' , {reverse: true}>
+								</div>
+								<div class="form-group col-md-4">
+									<label for="Impostos">Impostos Incidentes e Percentuais</label>
+									<input type="text" name="Impostos" id="Impostos" class="form-control" readonly>
+								</div>
+								<div class="form-group col-md-4">
+									<label for="Cd_svc">Código de Serviço/Produto TOTVS</label>
+									<input type="text" name="Cd_svc" id="Cd_svc" class="form-control" readonly>
+								</div>
+								<div class="form-group col-md-4">
+									<label for="Natureza_Financeira">Natureza Financeira</label>
+									<input type="text" name="Natureza_Financeira" id="Natureza_Financeira"
+										class="form-control" readonly>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="Dsc_Frm_Pag">Descrição da forma de Pagamento</label>
+									<textarea name="Dsc_Frm_Pag" id="Dsc_Frm_Pag" cols="30" rows="5"
+										class="form-control"></textarea>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="Clausulas">Clausulas e condições especiais</label>
+									<textarea name="Clausulas" id="Clausulas" cols="30" rows="5"
+										class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<strong class="panel-title"> <i aria-hidden="true"></i>Descrição Documental
+								</strong>
+							</div>
+							<div class="panel-body">
+								<div class="form-group col-md-6">
+									<label for="Docs_Empresa">Documentos da empresa</label>
+									<select name="Docs_Empresa" id="Docs_Empresa" class="form-control">
+										<option value="">-------</option>
+										<option value="Contrato_Social">Contrato Social</option>
+										<option value="Estatuto_Social">Estatuto Social e ata de eleição de diretoria
+										</option>
+										<option value="Procuracao_Publico">Procuração por instrumento público (Em caso
+											de procurador)</option>
+									</select>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="Docs_Negociacao">Documentos da negociação</label>
+									<select name="Docs_Negociacao" id="Docs_Negociacao" class="form-control">
+										<option value="">-------</option>
+										<option value="Proposta_Comercial">Proposta Comercial</option>
+										<option value="Proposta_Tecnica">Proposta Técnica</option>
+										<option value="Email_tratativas">E-mail/Tratativas</option>
+									</select>
+								</div>
+								<div class="form-group col-md-6">
+									<textarea name="Documentos_Empresa" id="Documentos_Empresa" cols="30" rows="5"
+										class="form-control"></textarea>
+								</div>
+								<div class="form-group col-md-6">
+									<textarea name="Documentos_Negociacao" id="Documentos_Negociacao" cols="30" rows="5"
+										class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Representante Legal
+										(Contratante)
+									</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Representante_E">Nome</label>
+										<input type="text" name="Nome_Representante_E" id="Nome_Representante_E"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Representante_E">CPF</label>
+										<input type="text" name="CPF_Representante_E" id="CPF_Representante_E"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Representante_E">E-mail</label>
+										<input type="text" name="Email_Representante_E" id="Email_Representante_E"
+											class="form-control">
+									</div>
+									<div class="row" style="display: flex; align-items: end; justify-content: right;">
+										<button id="Adicionar_Representante_E" type="button" class="btn btn-success"
+											style="margin-left: 10px;">Adicionar</button>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="table-responsive" id="div_tabela_ADC_Representante_E" style="display: none;">
+											<table class="table table-bordered" id="gradeRepresentanteContratante"
+												name="gradeRepresentanteContratante">
+												<thead>
+													<tr>
+														<th class="align-middle custom-th">Nome</th>
+														<th class="align-middle custom-th">CPF</th>
+														<th class="align-middle custom-th">E-mail</th>
+														<th class="align-middle custom-th">Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Representante Legal
+										(Contratado)
+									</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Representante_C">Nome</label>
+										<input type="text" name="Nome_Representante_C" id="Nome_Representante_C"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Representante_C">CPF</label>
+										<input type="text" name="CPF_Representante_C" id="CPF_Representante_C"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Representante_C">E-mail</label>
+										<input type="text" name="Email_Representante_C" id="Email_Representante_C"
+											class="form-control">
+									</div>
+									<div class="row" style="display: flex; align-items: end; justify-content: right;">
+										<button id="Adicionar_Representante_C" type="button" class="btn btn-success"
+											style="margin-left: 10px;">Adicionar</button>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="table-responsive" id="div_tabela_ADC_Representante_C" style="display: none;">
+											<table class="table table-bordered" id="gradeRepresentanteContratado"
+												name="gradeContratado">
+												<thead>
+													<tr>
+														<th class="align-middle custom-th">Nome</th>
+														<th class="align-middle custom-th">CPF</th>
+														<th class="align-middle custom-th">E-mail</th>
+														<th class="align-middle custom-th">Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Testemunha da
+										Contratante</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Testemunha_E">Nome</label>
+										<input type="text" name="Nome_Testemunha_E" id="Nome_Testemunha_E"
+											class="form-control" value="Jose Wenes Firmino da Silva Junior" readonly>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Testemunha_E">CPF</label>
+										<input type="text" name="CPF_Testemunha_E" id="CPF_Testemunha_E"
+											class="form-control" value="221.416.068-02" readonly>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Testemunha_E">E-mail</label>
+										<input type="text" name="Email_Testemunha_E" id="Email_Testemunha_E"
+											class="form-control" value="jose.wenes@abainfra.com.br" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Testemunha do
+										Contratado</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Testemunha_C">Nome</label>
+										<input type="text" name="Nome_Testemunha_C" id="Nome_Testemunha_C"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Testemunha_C">CPF</label>
+										<input type="text" name="CPF_Testemunha_C" id="CPF_Testemunha_C"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Testemunha_C">E-mail</label>
+										<input type="text" name="Email_Testemunha_C" id="Email_Testemunha_C"
+											class="form-control">
+									</div>
+									<div class="row" style="display: flex; align-items: end; justify-content: right;">
+										<button id="Adicionar_Testemunha_C" type="button" class="btn btn-success"
+											style="margin-left: 10px;">Adicionar</button>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="table-responsive" id="div_tabela_ADC_Testemunha_C" style="display: none;">
+											<table class="table table-bordered" id="gradeTestemunhaContratado"
+												name="gradeTestemunhaContratado">
+												<thead>
+													<tr>
+														<th class="align-middle custom-th">Nome</th>
+														<th class="align-middle custom-th">CPF</th>
+														<th class="align-middle custom-th">E-mail</th>
+														<th class="align-middle custom-th">Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Aprovador
+										(Contratante)</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Aprovador_E">Nome</label>
+										<input type="text" name="Nome_Aprovador_E" id="Nome_Aprovador_E"
+											class="form-control" value="Ivana Santos" readonly>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Aprovador_E">CPF</label>
+										<input type="text" name="CPF_Aprovador_E" id="CPF_Aprovador_E"
+											class="form-control" value="323.398.548-73" readonly>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Aprovador_E">E-mail</label>
+										<input type="text" name="Email_Aprovador_E" id="Email_Aprovador_E"
+											class="form-control" value="ivana.santos@abainfra.com.br" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Aprovador (Gestor de
+										contratos)</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Aprovador_C">Nome</label>
+										<input type="text" name="Nome_Aprovador_C" id="Nome_Aprovador_C"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Aprovador_C">CPF/ME</label>
+										<input type="text" name="CPF_Aprovador_C" id="CPF_Aprovador_C"
+											class="form-control">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Aprovador_C">E-mail</label>
+										<input type="text" name="Email_Aprovador_C" id="Email_Aprovador_C"
+											class="form-control">
+									</div>
+									<div class="row" style="display: flex; align-items: end; justify-content: right;">
+										<button id="Adicionar_Aprovador_C" type="button" class="btn btn-success"
+											style="margin-left: 10px;">Adicionar</button>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="table-responsive" id="div_tabela_ADC_Aprovador_C" style="display: none;">
+											<table class="table table-bordered" id="gradeAprovadorC"
+												name="gradeAprovadorC">
+												<thead>
+													<tr>
+														<th class="align-middle custom-th">Nome</th>
+														<th class="align-middle custom-th">CPF</th>
+														<th class="align-middle custom-th">E-mail</th>
+														<th class="align-middle custom-th">Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i aria-hidden="true"></i>Aprovador Jurídico</strong>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="Nome_Aprovador">Nome</label>
+										<input type="text" name="Nome_Aprovador" id="Nome_Aprovador"
+											class="form-control" value="Lucas Henrique Batista" readonly>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="CPF_Aprovador">CPF</label>
+										<input type="text" name="CPF_Aprovador" id="CPF_Aprovador" class="form-control"
+											value="284.855.038-48" readonly>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="Email_Aprovador">E-mail</label>
+										<input type="text" name="Email_Aprovador" id="Email_Aprovador"
+											class="form-control" value="lbatista@cunhabatista.com.br" readonly>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="display: flex; align-items: end; justify-content: right;">
+						<button id="Alterar_dados" type="button" class="btn btn-info" style="margin-left: 10px;">Alterar dados de Contratante</button>
+						<button id="Salvar_dados" type="button" class="btn btn-success" style="margin-left: 10px;">Finalizar</button> <!--Botão de lançamento no Protheus-->
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+</html>

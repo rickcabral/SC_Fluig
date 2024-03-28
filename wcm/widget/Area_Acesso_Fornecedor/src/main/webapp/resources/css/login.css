@@ -1,158 +1,96 @@
-.wcm_login {
-	margin: 0;
-	padding: 0;
-	position: relative;
-	width: auto;
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #023047;
 }
 
-.wcm_login .login-wrapper {
-	width: auto;
-	height: 32px;
-    margin-top: 0;
-	padding: 0;
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 82vh;
+    background-color: #ffffff;
+    background-image: url('https://syschamados.abainfra.com.br/pics/logos/fundo.jpg');
 }
 
-.wcm_login .container-login-wrapper,
-.wcm_login .container-image-wrapper {
-	float: left;
-	position: relative;
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 40px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    gap: 5px;
+    width: 500px;
 }
 
-.wcm_login .login-image-wrapper,
-.wcm_login .login-name-wrapper {
-	height: 32px;
-	float: left;
-	cursor: pointer;
+.formLogin h1 {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 2.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.wcm_login .login-image-wrapper {
-	margin-right: 10px;
-	overflow: hidden;
-	width: 30px;
+.formLogin p {
+    display: inline-block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.wcm_login .login-name-wrapper {
-	padding: 3px 40px 3px 10px;
-	position: relative;
-	font-size: 0.8em;
+.formLogin input {
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    outline: none;
 }
 
-.wcm_login .bg-menu-header {
-	border: 1px solid #7B7B7B;
+
+.formLogin input:focus {
+    border: 1px solid #ff0000;
 }
 
-.wcm_login .login-image-wrapper img {
-	border: none;
-	max-width: 28px;
-	margin: -3px 0;
+.formLogin label {
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.wcm_login .login-name-wrapper span {
-	color: #E8E8E8;
-	display: block;
-	overflow: hidden;
-	text-align: left;
+.formLogin a {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #555;
+    transition: all linear 160ms;
 }
 
-.wcm_login #j_username {
-	padding: 5px 10px 5px 5px;
-	margin: 0px 5px 0px 5px;
-	color: #CCC;
-	height:14px;
-	border:none;
-	outline: none; /*Remove Chrome and Safari glows on focus*/
+.btn {
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    transition: all linear 160ms;
+    cursor: pointer;
+    margin: 0;
+
 }
 
-.wcm_login #j_password {
-	color: #CCC;
-	height:14px;
-	border:none;
-	outline: none; /*Remove Chrome and Safari glows on focus*/
-	margin: 0px 5px 0px 5px;
-	padding: 5px 10px 5px 5px;
-}
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #d80606;
 
-/* Menu flutuante */
-.wcm_login .wcm-login-config {
-	display: none;
-	top: 42px;
-	white-space: nowrap;
-	width: auto;
-	z-index: 1;
-}
-
-.wcm_login .wcm-login-config {	
-	right: -1px;
-}
-
-.wcm_login .first {
-	margin-top: 0 !important;
-}
-
-.wcm_login .last {
-	margin-bottom: 0 !important;
-}
-
-.wcm_login .sub-list {
-	margin-left: 8px;
-}
-
-.wcm_login hr,
-.wcm_login .login-list-itens {
-	margin: 6px 0;
-}
-
-.wcm_login a {
-	color: #363636 !important;
-	text-decoration: none; 
-}
-
-.wcm_login .login-config-list-itens {
-	cursor: pointer;
-}
-
-.wcm_login a:hover,
-.wcm_login .login-config-list-itens:hover {
-	text-decoration: underline;
-}
-
-.menu-user-actions:before, .wcm-login-config:before {
-	content: "";
-	display: block;
-	position: absolute;
-	height: 11px;
-	width: 100%;
-	left: 0px !important;
-	top: -12px;
-}
-
-.container-login-wrapper .container-login-arrow {
-	display: block;
-	position: absolute;
-	height: 0;
-	width: 0;
-	border-right: 7px solid #417693;
-	border-top: 7px solid transparent;
-	border-bottom: 7px solid transparent;
-	left: -7px;
-	top: 2px;
-}
-
-.container-login-wrapper .container-login-config {
-	display: block;
-	height: 15px;
-	width: 15px;
-	position: absolute;
-	background: url(../images/engrenagem_light.png) no-repeat;
-	right: 7px;
-	top: 8px;	
-}
-
-.external-login td {
-	color: white;
-}
-
-.external-login #j_username, .external-login #j_password {
-	color: black;
-	height:  18px;
 }

@@ -1,0 +1,399 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<link rel="stylesheet" href="./stylesheet.css">
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./Avaliacao_Desempenho.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form" id="form_avaliacao_desempenho">
+			<div class="panel panel-danger" id="avaliacao_desempenho">
+				<div class="panel-heading">
+					<strong class="panel-title"> <i class="flaticon flaticon-form-list icon-md"
+							aria-hidden="true"></i>Avaliação de Desempenho</strong>
+					<button class="minimizar" onclick="minimizarPainel(this)">-</button>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="Avaliado">Avaliado</label>
+							<input type="text" id="Avaliado" name="Avaliado" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Avaliador">Avaliador</label>
+							<input type="text" name="Avaliador" id="Avaliador" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="Setor">Setor</label>
+							<input type="text" name="Setor" id="Setor" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-1">
+							<label for="Gerencia">Gerência</label>
+							<input type="text" name="Gerencia" id="Gerencia" class="form-control" readonly>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="Categoria_Avaliador">Categoria de Avaliador</label>
+							<select name="Categoria_Avaliador" id="Categoria_Avaliador" class="form-control">
+								<option value="Autoavaliacao">Autoavaliação</option>
+								<option value="Gestor_Imediato">Gestor Imediato</option>
+								<option value="Cliente_Interno">Cliente Interno</option>
+								<option value="Subordinado">Subordinado</option>
+								<option value="Pares">Pares</option>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel panel-default" id="AutoCuidado_Geral">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i
+											class="flaticon flaticon-sentiment-very-satisfied icon-md"
+											aria-hidden="true"></i>
+										Autocuidado e Cuidado com o Outro</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_Autocuidado">Escala de Avaliação</label>
+											<select name="Avaliacao_Autocuidado" id="Avaliacao_Autocuidado"
+												class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_Autocuidado">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_Autocuidado">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_Autocuidado">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_Autocuidado">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_Autocuidado">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_Autocuidado">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_Autocuidado" class="form-control"
+												id="Comport_Esperado_Autocuidado" cols="30" rows="5" readonly>Pratica a segurança física, emocional e social, sabe lidar com as emoções, busca o equilíbrio e o bem-estar em benefício da saúde mental. Assegura que todos tenham disciplina operacional na utilização das ferramentas de Segurança, Saúde e Meio Ambiente, evitando situações que coloque em risco os colaboradores. Cuida de si, cuida do outro e permite ser cuidado.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comentarios_Autocuidado">Comentários:</label>
+											<textarea name="Comentarios_Autocuidado" class="form-control"
+												id="Comentarios_Autocuidado" cols="30" rows="5"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-default" id="Comunicacao">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i class="flaticon flaticon-record-voice-over icon-md"
+											aria-hidden="true"></i>
+										Comunicação Empática e Efetiva</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_comunicacao">Escala de Avaliação</label>
+											<select name="Avaliacao_comunicacao" id="Avaliacao_comunicacao"
+												class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_Comunicacao">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_Comunicacao">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_Comunicacao">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_Comunicacao">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_Comunicacao">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_Comunicacao">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_Comunicacao" class="form-control"
+												id="Comportamento_Esperado_Comunicacao" cols="30" rows="5"
+												readonly>Colabora para uma comunicação aberta, pratica a escuta ativa e respeita as diferentes opiniões, proporcionando um espaço onde a fala tem valor. Expressa as ideias com organização e precisão, mantém a objetividade, sem divagações,  contradições e constrói relações de confiança.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comentarios_Comunicacao">Comentários:</label>
+											<textarea name="Comentarios_Comunicacao" class="form-control"
+												id="Comentarios_Comunicacao" cols="30" rows="5" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="panel panel-default" id="AutoDesenvolvimento_Geral">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i class="fluigicon fluigicon-user-selection icon-md"
+											aria-hidden="true"></i>
+										Autodesenvolvimento</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_AutoDesenvolvimento">Escala de Avaliação</label>
+											<select name="Avaliacao_AutoDesenvolvimento"
+												id="Avaliacao_AutoDesenvolvimento" class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_AutoDesenvolvimento">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_AutoDesenvolvimento">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_AutoDesenvolvimento">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_AutoDesenvolvimento">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_AutoDesenvolvimento">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_AutoDesenvolv">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_AutoDesenvolv" class="form-control"
+												id="Comport_Esperado_AutoDesenvolv" cols="30" rows="5"
+												readonly>Atua como protagonista de sua própria carreira buscando o autodesenvolvimento e incentiva os demais a fazerem o mesmo, busca com frequência saber como está o seu desempenho, alinha as expectativas com o seu gestor e coloca em prática as melhorias necessárias.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Coments_AutoDesenvolvimento">Comentários:</label>
+											<textarea name="Coments_AutoDesenvolvimento" class="form-control"
+												id="Coments_AutoDesenvolvimento" cols="30" rows="5" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-default" id="TrabalhoEquipe_Geral">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i
+											class="fluigicon fluigicon-community-selection icon-md"
+											aria-hidden="true"></i>
+
+										Trabalho em Equipe</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_TrabalhoEquipe">Escala de Avaliação</label>
+											<select name="Avaliacao_TrabalhoEquipe" id="Avaliacao_TrabalhoEquipe"
+												class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_TrabalhoEquipe">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_TrabalhoEquipe">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_TrabalhoEquipe">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_TrabalhoEquipe">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_TrabalhoEquipe">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_Trabalho">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_Trabalho" class="form-control"
+												id="Comportamento_Esperado_Trabalho" cols="30" rows="5"
+												readonly>Age com ética em suas relações, atua de forma colaborativa e constrói parcerias, transmite confiança e confia no seu parceiro de equipe. Promove a inclusão respeitando a diversidade e singularidades. Exerce influência positiva e compartilha conhecimento/informação com agilidade e qualidade cooperando com os resultados da equipe ou de outras áreas.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Coments_TrabalhoEquipe">Comentários:</label>
+											<textarea name="Coments_TrabalhoEquipe" class="form-control"
+												id="Coments_TrabalhoEquipe" cols="30" rows="5" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="panel panel-default" id="Criatividade_Geral">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i class="flaticon flaticon-wb-iridescent icon-md"
+											aria-hidden="true"></i>Criatividade e Inovação</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_Criatividade">Escala de Avaliação</label>
+											<select name="Avaliacao_Criatividade" id="Avaliacao_Criatividade"
+												class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_Criatividade">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_Criatividade">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_Criatividade">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_Criatividade">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_Criatividade">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_Criatividade">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_Criatividade" class="form-control"
+												id="Comport_Esperado_Criatividade" cols="30" rows="6" readonly>Busca o diferente e age com coragem na criação de soluções inovadoras, sendo uma referência no meio onde atua. Busca parcerias e recursos para implementação e celebra os resultados para propagar o valor na busca por inovações.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Coments_Criatividade">Comentários:</label>
+											<textarea name="Coments_Criatividade" class="form-control"
+												id="Coments_Criatividade" cols="30" rows="5" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="panel panel-default" id="PosturaLider_Geral">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i class="flaticon flaticon-person-star icon-md"
+											aria-hidden="true"></i>
+										Postura de Liderança</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_PosturaLider">Escala de Avaliação</label>
+											<select name="Avaliacao_PosturaLider" id="Avaliacao_PosturaLider"
+												class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_PosturaLider">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_PosturaLider">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_PosturaLider">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_PosturaLider">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_PosturaLider">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_PosturaLider">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_PosturaLider" class="form-control"
+												id="Comport_Esperado_PosturaLider" cols="30" rows="6" readonly>Toma decisões e assume a responsabilidade como empresa, incentiva os colaboradores a expressarem suas opiniões, criando um ambiente acessível e seguro. Também sabe a importância de transmitir confiança à sua equipe.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Coments_PosturaLider">Comentários:</label>
+											<textarea name="Coments_PosturaLider" class="form-control"
+												id="Coments_PosturaLider" cols="30" rows="5" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="panel panel-default" id="GestaoPessoa_Geral">
+								<div class="panel-heading">
+									<strong class="panel-title"> <i
+											class="fluigicon fluigicon-consense-pendings icon-md"
+											aria-hidden="true"></i>
+										Gestão de Pessoas</strong>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Avaliacao_GestaoPessoa">Escala de Avaliação</label>
+											<select name="Avaliacao_GestaoPessoa" id="Avaliacao_GestaoPessoa"
+												class="form-control">
+												<option value="">----------</option>
+												<option value="Gaps_GestaoPessoa">1 - Gaps Significativos
+												</option>
+												<option value="Desenvolvimento_GestaoPessoa">2 - Em
+													desenvolvimento</option>
+												<option value="Atende_GestaoPessoa">3 - Atende as Expectativas
+												</option>
+												<option value="Acima_Expec_GestaoPessoa">4 - Supera as
+													Expectativas</option>
+												<option value="Refer_GestaoPessoa">5 - Referência Interna
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Comport_Esperado_GestaoPessoa">Comportamento
+												Esperado do
+												Avaliado:</label>
+											<textarea name="Comport_Esperado_GestaoPessoa" class="form-control"
+												id="Comport_Esperado_GestaoPessoa" cols="30" rows="6" readonly>Reconhece a equipe pelas suas competências e resultados, pratica a meritocracia sem favoritismo. Desenvolve as pessoas com planos específicos e alinhados às necessidades técnicas e comportamentais (competências). Estabelece o feedback e one x one como ferramentas de gestão para inspirar e promover o desenvolvimento na busca pelo engajamento para alcançar melhores resultados.</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-12">
+											<label for="Coments_GestaoPessoa">Comentários:</label>
+											<textarea name="Coments_GestaoPessoa" class="form-control"
+												id="Coments_GestaoPessoa" cols="30" rows="5" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label for="Coments_Gerais">Comentários gerais da Avaliação</label>
+							<textarea name="Coments_Gerais" id="Coments_Gerais" cols="30" rows="5"
+								class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

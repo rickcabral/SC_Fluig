@@ -28,7 +28,7 @@
 				</div>
 				<div class="form-group col-md-6">
 					<label for="email">E-mail</label>
-					<input type="email" name="email" id="email" class="form-control">
+					<input type="email" name="email" id="email " class="form-control">
 				</div>
 				<div class="form-group col-md-12">
 					<label for="endEntrega">Endereço para entrega</label>
@@ -193,32 +193,6 @@
 					></upload-component>
 				</div>
 		</div>
-
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-   				var camposParaHabilitarOcultar = [document.getElementById("teste")];
-    			for (var campo of camposParaHabilitarOcultar) {
-        			campo.style.display = "none";
-    			}
-
-    			var toggleButton = document.getElementById("togglePreencherOcultar");
-    			toggleButton.addEventListener("click", function () {
-        			for (var campo of camposParaHabilitarOcultar) {
-            			if (campo.style.display === "none") {
-                			campo.style.display = "block";
-                			toggleButton.textContent = "Ocultar";
-							toggleButton.classList.remove("btn-primary");
-                			toggleButton.classList.add("btn-default");
-            			} else {
-                			campo.style.display = "none";
-                			toggleButton.textContent = "Preencher Dados";
-							toggleButton.classList.remove("btn-default");
-                			toggleButton.classList.add("btn-primary");
-            			}
-        			}
-   				});
-			});
-		</script>
 	</form>
 </div>
 
